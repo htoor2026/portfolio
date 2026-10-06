@@ -2,17 +2,21 @@
 
 **Owner:** Harkamal Toor
 
-**Status:** Approved
+**Status:** Draft — revised three-page architecture awaiting approval
 
 **Last updated:** 2026-10-06
 
 ## 1. Product summary
 
-Create a professional personal portfolio that presents Harkamal Toor as a strong candidate for Data Scientist, Machine Learning, and AI roles. The site should let a recruiter quickly understand his focus, assess evidence of his work, review relevant experience, and contact him.
+Create a professional three-page portfolio that presents Harkamal Toor as a strong candidate for Data Scientist, Machine Learning, and AI roles.
 
-Version 1 is a single-page Python application built with Streamlit and deployed on Streamlit Community Cloud. It uses local static assets and structured local content, with no custom backend, database, paid service, or third-party content system.
+Version 1 separates the recruiter's journey into three focused pages:
 
-Although Streamlit is the delivery framework, the finished site must read visually as a polished professional portfolio rather than a default analytics dashboard.
+1. **Home / About** provides a concise human introduction.
+2. **Projects** provides technical evidence and project-detail views.
+3. **Contact** makes verified contact and professional profiles easy to reach.
+
+The site remains a Python application built with Streamlit and intended for Streamlit Community Cloud. It uses structured local content and local assets, with no custom backend, database, paid service, analytics, or third-party content system.
 
 ## 2. Audience and primary journey
 
@@ -27,125 +31,184 @@ Although Streamlit is the delivery framework, the finished site must read visual
 
 ### Primary journey
 
-1. A visitor lands on the page and immediately sees Harkamal's name, target roles, and concise value proposition.
-2. The visitor scans featured projects and a dedicated results section for relevant, credible evidence.
-3. The visitor reviews skills, background, education, and experience.
-4. The visitor downloads an approved resume or follows a verified contact or professional link.
+1. A visitor opens Home and quickly understands who Harkamal is, his professional focus, and his working personality.
+2. The visitor opens Projects to scan verified technical work and inspect a selected project's details.
+3. The visitor downloads the approved local resume from the bottom of Home.
+4. The visitor opens Contact to use a verified email or professional profile.
 
 ## 3. Goals
 
-- Communicate professional positioning within the first viewport.
-- Make two to four strong, relevant projects easy to evaluate.
-- Give project results and impact more prominence than a technology inventory.
-- Present Streamlit with a deliberate portfolio visual system rather than its default dashboard appearance.
-- Provide reliable resume and contact actions.
-- Keep content updates simple and local, with no paid or operational infrastructure.
+- Give recruiters a clear, human introduction without overwhelming them with technical evidence.
+- Keep project metrics and technical depth on the Projects page.
+- Make six primary portfolio projects easy to scan while supporting deeper verified case-study content.
+- Make contact information and professional profiles immediately understandable.
+- Present Streamlit as a simple professional site rather than a dashboard or notebook.
+- Keep content updates local, structured, and independent of rendering code.
 
 ## 4. Non-goals for version 1
 
-- A blog, newsletter, content management system, or project-detail routes
-- A custom backend, API, database, authentication, or admin area
+- A single long homepage containing all project evidence
+- Project metrics, detailed case studies, charts, or technical result grids on Home
+- A blog, newsletter, content management system, or admin area
 - A custom contact form or email-sending service
+- A custom backend, API, database, authentication, or user account system
 - Paid analytics, hosting, fonts, imagery, or SaaS products
-- Live model inference, data pipelines, dashboards, or interactive data applications
-- Complex animation, 3D content, or a JavaScript frontend framework
+- Unnecessary charts, animations, gradients, progress bars, or dashboard widgets
+- A JavaScript frontend framework or custom Streamlit component
 - Automatically generated or invented portfolio content
 - Dark mode, multilingual support, or multiple themes unless later approved
 
 ## 5. Functional requirements
 
-- **FR-001 — Hero:** The first viewport must display Harkamal Toor's name, target discipline, a short evidence-based value proposition, and one primary call to action.
-- **FR-002 — About:** The site must include a concise professional summary covering specialization, working style, and the kinds of problems Harkamal solves.
-- **FR-003 — Featured projects:** The site must present two to four verified projects. Each project must identify its problem or goal, Harkamal's contribution, approach, tools, and only those links intended to be public.
-- **FR-004 — Experience:** The site must present relevant experience in reverse chronological order with role, organization, dates, and outcome-oriented highlights.
-- **FR-005 — Skills:** The site must group verified capabilities into a small number of meaningful categories such as machine learning, data, engineering, and tools. Prominent skills should be supported by project or experience evidence.
-- **FR-006 — Education and credentials:** The site must display verified relevant education and optional credentials when supplied.
-- **FR-007 — Resume:** The site must provide a clearly labeled download or external resume action only when a current, approved public resume is available.
-- **FR-008 — Contact:** The site must offer verified ways to contact or learn more about Harkamal, such as email, LinkedIn, and GitHub. A submission form is not required.
-- **FR-009 — Navigation:** Visitors must be able to understand and reach every major section through a clear page flow and, where reliable in Streamlit, compact section navigation. All actions must work with keyboard input.
-- **FR-010 — Responsive presentation:** All required content and actions must remain usable on mobile, tablet, laptop, and wide desktop viewports.
-- **FR-011 — Page identity:** The Streamlit page configuration must provide an approved page title, favicon, and wide or centered layout choice. Additional metadata is limited to what Streamlit Community Cloud reliably supports without a separate frontend.
-- **FR-012 — Honest incomplete-content behavior:** Missing facts, assets, or URLs must be omitted from the published interface rather than replaced with fabricated or broken content.
-- **FR-013 — Project results and impact:** A dedicated section must summarize verified project outcomes, metrics, or qualitative impact separately from the project descriptions. It must not invent quantitative results when none are available.
-- **FR-014 — Section order:** The page must present sections in this order: Hero, Featured Projects, Project Results / Impact, Skills, About, Education / Experience, Resume, and Contact.
+- **FR-001 — Home identity:** Home must display an approved professional profile photo with meaningful alt text, Harkamal Toor's name, and a short Data Science / Machine Learning / AI headline.
+- **FR-002 — About:** Home must include a concise, verified About Me story that communicates Harkamal's Computer Programming background, Data Science and ML focus, end-to-end problem solving, experimentation, and business decision-making.
+- **FR-003 — Project cards:** Projects must display cards for the six primary projects. Each card must support a project name, short verified description, verified technologies, selected verified result or results, detail action, GitHub URL when available, and live deployment URL when available.
+- **FR-004 — Experience (deferred):** A standalone experience section is no longer required in version 1. Employment details must not appear outside the approved resume or a future approved requirement unless verified content is supplied.
+- **FR-005 — Technical skills:** Home must include a small, scannable technical-skills section. It must not use progress bars or imply proficiency levels that were not supplied.
+- **FR-006 — Education (deferred):** A standalone education section is no longer required in version 1. Verified education may inform the About story or remain in the approved resume.
+- **FR-007 — Resume:** The bottom of Home must provide a clearly labeled button that downloads a local, current, approved PDF. The button must not appear when the approved file is unavailable.
+- **FR-008 — Contact:** Contact must show public email, LinkedIn, GitHub, and X. Missing values must remain clear development placeholders and must not become fabricated links. No contact form is permitted.
+- **FR-009 — Navigation:** The app must provide minimal top navigation between Home, Projects, and Contact using supported Streamlit navigation. All navigation and actions must work with keyboard input.
+- **FR-010 — Responsive presentation:** All three pages and project-detail states must remain usable on mobile, tablet, laptop, and wide desktop viewports.
+- **FR-011 — Page identity:** Each top-level page must have a clear page title and heading. Shared Streamlit configuration must provide the approved browser title, favicon, and light theme.
+- **FR-012 — Honest incomplete-content behavior:** Missing facts, assets, technologies, results, decisions, lessons, or URLs must be omitted from publishable UI or remain unmistakable development placeholders. Nothing may be inferred or fabricated.
+- **FR-013 — Project results:** Verified results and metrics may appear only on Projects cards or project-detail views. Home must not display project metrics.
+- **FR-014 — Three-page structure:** Version 1 must have exactly three top-level pages in this order: Home, Projects, Contact.
+- **FR-015 — Project-detail view:** The Projects page must support a detail state for each project with fields for Problem, Approach, Technologies, Results, Business/technical decision, What was learned, GitHub, and Live Demo. Empty fields must not be invented.
+- **FR-016 — Personality:** Home must display these approved personality keywords: Creative, Analytical, Builder-minded, Clear Communicator, Persistent, and Diplomatic.
+- **FR-017 — Primary project set:** The Projects page must support these projects: Flight Pulse; A/B Testing & Personalization; Toronto Climate Analysis; Customer Churn Prediction; Retail / Recommendation Intelligence; and End-to-End ML System.
 
 ## 6. Non-functional requirements
 
-- **NFR-001 — Technology and hosting:** The implementation must use Python and Streamlit and must be deployable on Streamlit Community Cloud.
-- **NFR-002 — Cost:** The production site must operate without paid services. New services require explicit approval and must not be necessary for the initial release.
-- **NFR-003 — Accessibility:** The site must target WCAG 2.2 AA within Streamlit's platform constraints, including logical reading order, keyboard access, visible focus, sufficient contrast, descriptive link text, and meaningful image alternatives.
-- **NFR-004 — Performance and assets:** Images, the resume, styles, and other owned assets must be stored locally in the repository and appropriately sized. The app must avoid unnecessary dependencies, remote asset requests, and expensive computation during page rendering.
-- **NFR-005 — Professional visual quality:** The site must use a cohesive custom theme, deliberate typography, spacing, color, content width, and project presentation. Default Streamlit dashboard patterns such as an unnecessary sidebar, exposed debug output, dense widget layouts, or chart-first composition must not dominate the experience.
-- **NFR-006 — Privacy:** The initial release must add no analytics, behavioral tracking, fingerprinting, or visitor-submitted data collection.
-- **NFR-007 — Security:** No secrets or private data may be committed to the repository or rendered in the app. Only approved public contact details and assets may ship.
-- **NFR-008 — Maintainability:** Portfolio content must be separate from rendering code and editable in one structured Python or JSON file. Version 1 should use a plain Python content module unless approved content reveals a need for JSON.
+- **NFR-001 — Technology and hosting:** The implementation must use Python and Streamlit and remain deployable on Streamlit Community Cloud.
+- **NFR-002 — Cost:** The production site must operate without paid services. New services require explicit approval and must not be necessary for version 1.
+- **NFR-003 — Accessibility:** The site must target WCAG 2.2 AA within Streamlit's platform constraints, including logical reading order, keyboard access, visible focus, sufficient contrast, descriptive links, and meaningful image alternatives.
+- **NFR-004 — Performance and local assets:** The profile photo, resume, styles, and other owned assets must be stored locally and appropriately sized. The app must avoid unnecessary dependencies, remote asset requests, and expensive rendering work.
+- **NFR-005 — Professional visual quality:** The site must use a restrained light theme, deliberate typography, spacing, content width, and hierarchy. It must not use gradients, skill progress bars, unnecessary animation, dense widgets, or default dashboard-style composition.
+- **NFR-006 — Privacy:** Version 1 must add no analytics, behavioral tracking, fingerprinting, or visitor-submitted data collection.
+- **NFR-007 — Security:** No secrets or private data may be committed or rendered. Only approved public contact details, links, documents, and images may ship.
+- **NFR-008 — Maintainability:** All portfolio facts and page copy must remain in `portfolio_data.py`; page modules must primarily handle presentation and navigation.
 - **NFR-009 — Compatibility:** The deployed app must complete its primary journey in current stable versions of Chrome, Safari, Firefox, and Edge.
-- **NFR-010 — Content integrity:** Every public claim, date, metric, credential, image, document, and external URL must be supplied or approved by Harkamal before release.
-- **NFR-011 — Simple architecture:** Version 1 must have no custom backend service, database, API layer, frontend framework, or runtime dependency beyond what is required to render the Streamlit portfolio.
+- **NFR-010 — Content integrity:** Every public claim, technology, date, metric, credential, image, document, and external URL must be supplied or approved by Harkamal before release.
+- **NFR-011 — Simple architecture:** Version 1 must have no custom backend, database, API layer, frontend framework, or runtime dependency beyond what is required to render the Streamlit portfolio.
+- **NFR-012 — Charts:** Charts are prohibited on Home and Contact. A chart may appear in a project-detail view only when it is part of verified project evidence and improves understanding.
 
-## 7. Content contract
+## 7. Page content contracts
 
-Implementation may begin with clearly marked local draft content, but public deployment is blocked until the following are supplied and verified:
+### Page 1 — Home / About
 
-- Professional headline and short biography
-- Primary call to action
-- Location or work-authorization statement, if Harkamal wants it public
-- Preferred public email address
-- LinkedIn, GitHub, and any other approved profile URLs
-- Current resume PDF or approved external resume URL
-- Employment history with exact titles, organizations, dates, and highlights
-- Education and approved credentials
-- Two to four projects with role, problem, approach, technology, result or impact, links, and approved visuals
-- Headshot or portrait choice, if one will be used
-- Final Streamlit Community Cloud URL
+Home contains, in this order:
 
-Unknown content must remain visibly marked in local development and must never be guessed. Quantitative project metrics require a verifiable source; otherwise, use accurate qualitative outcomes.
+1. Professional profile photo
+2. Name and short professional headline
+3. Concise About Me story
+4. Six approved personality keywords
+5. Small technical-skills section
+6. Local resume download at the bottom
 
-## 8. Information architecture
+Home must remain visually minimal and must not show project metrics.
 
-The initial release is one page in this exact order:
+### Page 2 — Projects
 
-1. Hero
-2. Featured Projects
-3. Project Results / Impact
-4. Skills
-5. About
-6. Education / Experience
-7. Resume
-8. Contact
+Projects contains cards for all six primary projects. Each card and detail view may show only supplied information.
 
-A compact header or navigation treatment may be included if it works reliably without making the page resemble a Streamlit control panel.
+Each project record supports:
 
-## 9. Acceptance criteria
+- Name
+- Short description
+- Technologies
+- Selected results
+- Problem
+- Approach
+- Business or technical decision
+- What was learned
+- GitHub URL
+- Live Demo URL
 
-- **AC-001 — First-view clarity:** At 375 px and 1440 px viewport widths, the first viewport shows Harkamal's name, target discipline, positioning statement, and primary action without overlap or unintended horizontal scrolling. Covers `FR-001`, `FR-010`.
-- **AC-002 — Complete ordered content path:** Every supplied and approved section appears in the order defined by `FR-014`; unavailable optional content is omitted cleanly. Covers `FR-002` through `FR-008`, `FR-012` through `FR-014`, and `NFR-010`.
-- **AC-003 — Keyboard use:** A keyboard-only reviewer can reach and activate every link, download, and navigation control in a logical order, can see focus, and encounters no keyboard trap. Covers `FR-009`, `NFR-003`.
-- **AC-004 — Responsive review:** The page has no unintended horizontal overflow, clipped text, or obscured action at 320 px, 375 px, 768 px, 1024 px, and 1440 px widths. Covers `FR-010`.
-- **AC-005 — Automated checks:** The documented Python syntax check and dependency integrity check both exit successfully from a clean checkout, and the Streamlit app starts in headless mode without an uncaught exception. Covers `NFR-001`, `NFR-008`, `NFR-011`.
-- **AC-006 — Page identity:** The deployed app shows the approved browser title, favicon, and layout configuration. Covers `FR-011`.
-- **AC-007 — Accessibility review:** Automated inspection reports no critical or serious issues introduced by custom markup or styling, and manual review confirms reading order, text alternatives, contrast, keyboard use, and focus visibility. Covers `NFR-003`.
-- **AC-008 — Professional presentation:** A desktop and mobile visual review confirms a cohesive portfolio aesthetic, clear hierarchy, restrained Streamlit chrome, readable project cards, and no default dashboard or notebook-like presentation. Covers `NFR-005`.
-- **AC-009 — Privacy and network review:** Browser storage, cookies attributable to the app, and the production network log show no added analytics, tracking, form-data collection, or unapproved third-party asset requests. Covers `NFR-002`, `NFR-004`, `NFR-006`.
-- **AC-010 — Content and link audit:** A human review confirms every factual claim against supplied source material, every public link resolves to its intended destination, the resume is current, and no placeholder or broken asset remains. Covers `FR-012`, `NFR-007`, `NFR-010`.
-- **AC-011 — Browser smoke test:** The deployed app completes its primary journey in current stable versions of Chrome, Safari, Firefox, and Edge. Covers `NFR-009`.
-- **AC-012 — Community Cloud deployment:** Streamlit Community Cloud can install the declared dependencies, start the app from the documented entry point, load local assets, and expose the approved public URL without a paid service. Covers `NFR-001`, `NFR-002`, `NFR-004`.
+Project detail is a state within the Projects page, not a fourth top-level navigation page.
 
-## 10. Approved architecture decisions and remaining assumptions
+### Page 3 — Contact
+
+Contact contains:
+
+- Public email — currently missing
+- LinkedIn — `https://www.linkedin.com/in/harkamal-s/`
+- GitHub — `https://github.com/htoor2026`
+- X — `https://x.com/HarryToor01`
+
+Contact must not contain a form or collect visitor data.
+
+## 8. Content contract
+
+Implementation may use unmistakable local placeholders, but public deployment is blocked until required publishable content is supplied and verified.
+
+### Required Home content
+
+- Approved local profile image and alt text
+- Approved short headline
+- Approved About Me story
+- Approved technical-skill subset
+- Current approved local resume PDF
+
+### Required Projects content
+
+- Six project names
+- Verified short descriptions
+- Verified technologies
+- Verified selected results where available
+- Verified detail fields where available
+- Approved GitHub and live-demo URLs where available
+
+### Required Contact content
+
+- Public email address
+- Verified LinkedIn, GitHub, and X URLs
+
+Unknown content must never be guessed. Quantitative metrics require a supplied source; qualitative claims must also be approved.
+
+## 9. Information architecture
+
+The top navigation order is:
+
+1. Home
+2. Projects
+3. Contact
+
+`app.py` acts as the shared Streamlit router and frame. Project-detail views remain within Projects so no additional top-level page is introduced.
+
+## 10. Acceptance criteria
+
+- **AC-001 — Home clarity:** At 375 px and 1440 px viewport widths, Home clearly presents the approved photo, name, headline, concise About story, personality, compact skills, and resume action without project metrics or horizontal overflow. Covers `FR-001`, `FR-002`, `FR-005`, `FR-007`, `FR-010`, `FR-013`, `FR-016`.
+- **AC-002 — Three-page content path:** Home, Projects, and Contact appear in the approved order and each contains only its assigned content. Covers `FR-003`, `FR-008`, `FR-014`, `FR-017`.
+- **AC-003 — Keyboard use:** A keyboard-only reviewer can reach and activate top navigation, project-detail actions, external links, and resume download in a logical order with visible focus and no keyboard trap. Covers `FR-009`, `NFR-003`.
+- **AC-004 — Responsive review:** All pages and detail states have no unintended horizontal overflow, clipped text, or obscured action at 320 px, 375 px, 768 px, 1024 px, and 1440 px widths. Covers `FR-010`.
+- **AC-005 — Automated checks:** Dependency integrity, Python compilation, imports, Streamlit AppTest coverage for all three pages, and headless local startup all pass. Covers `NFR-001`, `NFR-008`, `NFR-011`.
+- **AC-006 — Page identity:** Each top-level page has the approved navigation label, heading, browser identity, favicon, and light theme. Covers `FR-011`.
+- **AC-007 — Accessibility review:** Automated inspection reports no critical or serious issue introduced by custom markup or styling, and manual review confirms reading order, text alternatives, contrast, keyboard use, and focus visibility. Covers `NFR-003`.
+- **AC-008 — Professional presentation:** Desktop and mobile review confirms a minimal professional site with no dashboard appearance, gradients, progress bars, unnecessary animation, or unapproved charts. Covers `NFR-005`, `NFR-012`.
+- **AC-009 — Privacy and network review:** Browser storage, cookies attributable to the app, and production network activity show no added analytics, tracking, form collection, or unapproved third-party asset request. Covers `NFR-002`, `NFR-004`, `NFR-006`.
+- **AC-010 — Content and link audit:** Human review confirms every claim and project field against supplied material, every published external link reaches its intended destination, and no publishable page contains a fabricated or broken value. Covers `FR-012`, `NFR-007`, `NFR-010`.
+- **AC-011 — Browser smoke test:** The deployed app completes its primary journey in current stable Chrome, Safari, Firefox, and Edge. Covers `NFR-009`.
+- **AC-012 — Community Cloud deployment:** Streamlit Community Cloud can install the declared dependencies, start `app.py`, load all local assets, and expose the approved public URL without a paid service. Covers `NFR-001`, `NFR-002`, `NFR-004`.
+- **AC-013 — Resume download:** The Home resume button downloads the approved local PDF and does not expose a missing, stale, or remote placeholder file. Covers `FR-007`, `NFR-004`, `NFR-010`.
+- **AC-014 — Project details:** Each project card can open its matching detail state; populated fields match verified data and missing fields are not fabricated. Covers `FR-003`, `FR-012`, `FR-015`, `FR-017`.
+
+## 11. Architecture decisions and assumptions
 
 - **D-001:** Version 1 uses Python and Streamlit.
-- **D-002:** Version 1 deploys to Streamlit Community Cloud.
-- **D-003:** All owned assets are stored locally in the repository.
-- **D-004:** Version 1 has no custom backend, database, or paid service.
-- **A-001:** The first release is a single-page portfolio.
-- **A-002:** English is the only language in the first release.
-- **A-003:** Contact uses public links such as `mailto:`, LinkedIn, and GitHub rather than a form.
-- **A-004:** The site uses system fonts and local assets to avoid external runtime asset requests.
-- **A-005:** The site launches without analytics.
-- **A-006:** Two to four strong projects are more useful than a long project archive.
-- **A-007:** A plain Python module is the simplest structured content source for version 1; JSON remains acceptable if the final content workflow favors it.
-- **A-008:** The initial public URL may use the Streamlit Community Cloud subdomain; a custom domain is outside version 1 unless separately approved.
+- **D-002:** Version 1 targets Streamlit Community Cloud.
+- **D-003:** Owned images, the resume, and styles remain local.
+- **D-004:** Version 1 has no custom backend, database, paid service, or analytics.
+- **D-005:** Version 1 has exactly three top-level pages: Home, Projects, and Contact.
+- **D-006:** `app.py` uses supported Streamlit top navigation and acts as the shared router.
+- **D-007:** Project details render inside the Projects page rather than as additional top-level pages.
+- **A-001:** English is the only language in version 1.
+- **A-002:** Contact uses public links rather than a form.
+- **A-003:** The site uses system fonts and local assets instead of remote runtime assets.
+- **A-004:** A plain Python module remains the simplest structured content source.
+- **A-005:** The initial public URL may use a Streamlit Community Cloud subdomain.
+- **A-006:** Missing project-detail fields remain absent or visibly marked during development and are not release-ready content.
 
-## 11. Approval status
+## 12. Approval gate
 
-Harkamal approved this specification on 2026-10-06. Implementation may proceed according to the approved plan. Public deployment remains blocked by `AC-010` and requires separate explicit approval.
+This revision supersedes the approved single-page information architecture. Do not refactor application code until Harkamal explicitly approves this revised specification and the matching revised plan. Deployment remains separately blocked until all release acceptance criteria pass and Harkamal explicitly authorizes it.

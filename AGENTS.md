@@ -2,25 +2,26 @@
 
 ## Project
 
-This repository contains the personal portfolio of **Harkamal Toor**, aimed at recruiters and hiring managers for Data Scientist, Machine Learning, and AI roles.
+This repository contains the professional portfolio of **Harkamal Toor**, aimed at recruiters and hiring managers for Data Scientist, Machine Learning, and AI roles.
 
-The approved version 1 architecture is:
+The version 1 platform remains:
 
 - Python
 - Streamlit
-- Streamlit Community Cloud deployment
+- Streamlit Community Cloud as the eventual deployment target
+- Structured local content
 - Local static assets
 - Free services only
 
-Do not introduce Next.js, TypeScript, Tailwind CSS, React, another JavaScript framework, a custom backend, an API layer, or a database.
+Do not introduce Next.js, TypeScript, Tailwind CSS, React, another JavaScript framework, a custom backend, an API layer, a database, analytics, or a paid service.
 
 ## Current phase
 
-`SPEC.md` and `PLAN.md` were approved by the user on 2026-10-06. The repository is ready for Phase 1 implementation when the user requests it.
+The product architecture is being revised from one long page to three top-level pages. `SPEC.md` and `PLAN.md` are drafts awaiting explicit approval after this revision.
 
-Do not deploy, connect the repository to Streamlit Community Cloud, change cloud settings, or perform any other cloud action without explicit user approval.
+Do not modify application code to implement the three-page design until the user approves both revised documents. The existing single-page implementation is superseded design work, not the new source of product truth.
 
-When requirements change, update `SPEC.md` first and keep existing requirement IDs stable. Update `PLAN.md` when a change affects scope, sequencing, architecture, or verification.
+Do not deploy, connect the repository to Streamlit Community Cloud, change cloud settings, or perform any other cloud action without separate explicit approval.
 
 ## Sources of truth
 
@@ -32,40 +33,67 @@ Use this precedence when instructions conflict:
 4. This file
 5. Existing implementation conventions
 
-Do not silently resolve a material conflict. Report it and ask for direction when the sources above do not establish a clear answer.
+Do not silently resolve a material conflict. Report it and request direction when the sources above do not establish a clear answer.
 
 ## Content integrity
 
 Never invent or embellish:
 
-- Project claims, results, impact, or metrics
-- Technologies, methods, datasets, or responsibilities
+- Project descriptions, problems, approaches, results, impact, decisions, or lessons
+- Technologies, methods, datasets, responsibilities, or proficiency levels
 - Employers, roles, dates, education, or credentials
-- Contact details, profile links, repository links, or URLs
-- Resume content, images, testimonials, or awards
+- Email addresses, profile links, repositories, demos, or other URLs
+- Resume content, images, testimonials, awards, or metrics
 
-Use only content supplied or approved by Harkamal. Missing optional content must be omitted from the public interface. Development placeholders must be unmistakable and must not reach deployment.
+Use only content supplied or approved by Harkamal. Missing optional content must be omitted from release UI. Development placeholders must be unmistakable and must not reach deployment.
 
-Keep all portfolio content separate from rendering code in `portfolio_data.py`. Use plain Python dictionaries and lists unless an approved requirement justifies a more complex structure. Do not scatter portfolio copy through `app.py`.
+Keep every portfolio fact and page-copy value in `portfolio_data.py`. Page modules primarily handle presentation, navigation, and conditional rendering.
 
-## Homepage contract
+## Three-page product contract
 
-Version 1 is a single-page portfolio with these sections in this exact order:
+Version 1 has exactly three top-level pages in this order:
 
-1. Hero
-2. Featured Projects
-3. Project Results / Impact
-4. Skills
-5. About
-6. Education / Experience
-7. Resume
-8. Contact
+1. Home
+2. Projects
+3. Contact
 
-Do not add, remove, rename, reorder, or split these sections without updating the approved specification.
+Use supported Streamlit top navigation. Do not create a sidebar navigation experience or a fourth top-level page for project details.
 
-## Architecture and repository structure
+### Home
 
-Use the smallest structure that satisfies the approved plan:
+Home is a visually minimal human introduction. It contains, in order:
+
+1. Approved professional profile photo
+2. Harkamal Toor's name and short Data Science / ML / AI headline
+3. Concise About Me story
+4. Personality keywords: Creative, Analytical, Builder-minded, Clear Communicator, Persistent, Diplomatic
+5. Small technical-skills section
+6. Approved local resume download at the bottom
+
+Home must not contain project metrics, detailed case studies, result grids, charts, or dashboard widgets.
+
+### Projects
+
+Projects presents technical evidence for:
+
+1. Flight Pulse
+2. A/B Testing & Personalization
+3. Toronto Climate Analysis
+4. Customer Churn Prediction
+5. Retail / Recommendation Intelligence
+6. End-to-End ML System
+
+Each project card supports only verified name, short description, technologies, selected results, GitHub URL, and live-demo URL. Project detail remains a state inside Projects and supports Problem, Approach, Technologies, Results, Business/technical decision, What was learned, GitHub, and Live Demo.
+
+Conditionally omit missing project fields. Never fill gaps with plausible text.
+
+### Contact
+
+Contact contains verified public email, LinkedIn, GitHub, and X. Email remains a development placeholder until supplied. Do not add a form, backend, scheduling widget, or data collection.
+
+## Proposed architecture
+
+After revised-plan approval, use this structure:
 
 ```text
 portfolio/
@@ -75,55 +103,65 @@ portfolio/
 ├── app.py
 ├── portfolio_data.py
 ├── requirements.txt
+├── views/
+│   ├── home.py
+│   ├── projects.py
+│   └── contact.py
 ├── .streamlit/
 │   └── config.toml
 └── assets/
     ├── styles.css
     ├── images/
+    │   └── profile.jpg
     └── resume.pdf
 ```
 
-- `app.py` owns Streamlit page configuration, section composition, and rendering.
-- `portfolio_data.py` is the single source for structured portfolio content.
-- `.streamlit/config.toml` contains supported Streamlit theme and UI configuration.
-- `assets/styles.css` contains focused portfolio-specific styling.
-- `assets/images/` contains optimized, owned or explicitly licensed local images.
-- `assets/resume.pdf` is added only when Harkamal supplies and approves the public resume.
+- `app.py` owns shared page configuration, local CSS loading, and `st.navigation` with `position="top"`.
+- `views/home.py` renders Home / About.
+- `views/projects.py` renders the project gallery and selected project-detail state.
+- `views/contact.py` renders verified contact methods and profiles.
+- `portfolio_data.py` remains the single source for structured portfolio content.
+- `.streamlit/config.toml` contains the light theme and safe Streamlit configuration.
+- `assets/styles.css` contains minimal shared responsive styling.
+- `assets/images/profile.jpg` and `assets/resume.pdf` must be approved local files before release.
 
-Do not create empty directories or files in anticipation of future work. Do not add a component framework, CMS, state layer, build system, test framework, analytics package, or live data integration without an approved requirement.
+Do not add a shared helper module unless implementation proves it prevents meaningful duplication across all three views. Do not add a component framework, CMS, state library, build system, test framework, or data layer without an approved requirement.
 
 ## Streamlit implementation rules
 
+- Use `st.Page` and `st.navigation(..., position="top")` for the three top-level pages.
 - Use supported Streamlit APIs and Python standard-library features first.
-- Keep runtime dependencies minimal. Version 1 should require only Streamlit unless a concrete approved requirement cannot be met without another package.
-- Pin runtime dependencies to compatible versions for reproducible Community Cloud builds.
+- Keep Streamlit as the only direct runtime dependency unless an approved requirement proves another package necessary.
+- Pin runtime dependencies for reproducible Community Cloud builds.
+- Keep project-detail selection inside Projects using the smallest supported state or query mechanism.
 - Do not add JavaScript components, embedded remote applications, or frontend frameworks.
-- Do not add a custom server, API endpoint, database, authentication, or secret-dependent feature.
-- Do not add paid services or features that require a paid tier.
-- Keep images, the resume, CSS, and other owned assets local to the repository.
+- Do not add a custom server, endpoint, database, authentication, or secret-dependent feature.
+- Keep the profile image, resume, CSS, and other owned assets local.
 - Prefer Streamlit theme configuration before CSS overrides.
-- Keep CSS small and avoid selectors tied to generated class names when a stable or semantic selector is available.
-- Avoid unnecessary computation, remote requests, and large dependencies during page rendering.
+- Keep CSS small and avoid selectors tied to generated class names when stable alternatives exist.
+- Avoid unnecessary computation, remote asset requests, and large dependencies.
 
 ## Visual design
 
-The result must look like a professional Data Science portfolio, not a default Streamlit dashboard or notebook.
+The result must look like a simple professional portfolio, not a Streamlit dashboard or notebook.
 
-- Use a cohesive palette, typography scale, spacing system, content width, and visual hierarchy.
-- Present projects as concise case studies and give verified results or impact clear prominence.
-- Do not use an unnecessary sidebar, dense widget grids, debug output, chart-first composition, or controls without a portfolio purpose.
-- Keep Streamlit chrome visually restrained using supported configuration and maintainable CSS.
-- Prefer clear, calm presentation over decorative complexity or excessive motion.
-- Do not load remote fonts, images, or decorative assets when a local or system alternative is sufficient.
+- Use a light theme, restrained palette, clear typography, generous spacing, and narrow readable content widths.
+- Keep navigation minimal and visible without relying on a sidebar.
+- Do not use gradients.
+- Do not use skill progress bars or invented proficiency levels.
+- Do not use unnecessary animation.
+- Do not use charts on Home or Contact.
+- Use a chart in project detail only when it is verified project evidence and materially improves understanding.
+- Avoid dense widgets, debug output, controls without a portfolio purpose, and remote decorative assets.
 
 ## Responsive and accessible behavior
 
-- Preserve a logical reading and keyboard order.
-- Use clear headings, descriptive links, meaningful image alternatives, sufficient color contrast, and visible focus styles.
+- Preserve logical heading, reading, and keyboard order on every page and detail state.
+- Use descriptive links, meaningful image alternatives, sufficient contrast, and visible focus.
 - Do not rely on color alone to communicate meaning.
-- Ensure buttons, downloads, and links are keyboard operable and clearly labeled.
-- Design columns and cards to stack cleanly on narrow screens.
-- Check for clipped text, obscured actions, and unintended horizontal overflow at 320, 375, 768, 1024, and 1440 px widths.
+- Ensure navigation, project-detail actions, downloads, and external links are keyboard operable and clearly labeled.
+- Design cards and columns to stack cleanly on narrow screens.
+- Check for clipped text, obscured actions, and horizontal overflow at 320, 375, 768, 1024, and 1440 px widths.
 - Target WCAG 2.2 AA within Streamlit's platform constraints.
 
 Accessibility basics must not be removed to simplify styling.
@@ -133,49 +171,55 @@ Accessibility basics must not be removed to simplify styling.
 For each approved phase or bounded change:
 
 1. Confirm the relevant `FR-*`, `NFR-*`, and `AC-*` requirements in `SPEC.md`.
-2. Inspect the files in scope and the current Git diff.
-3. Make the smallest complete change that satisfies the active phase.
-4. Run applicable validation after every significant change.
-5. Review responsive behavior, accessibility, visual quality, and content accuracy when affected.
-6. Report what changed, what was validated, and any unresolved content dependency or conflict.
+2. Inspect the files in scope and current Git diff.
+3. Preserve verified content before restructuring data or presentation.
+4. Make the smallest complete change that satisfies the active phase.
+5. Run applicable validation after every significant change.
+6. Review responsive behavior, accessibility, page boundaries, visual quality, and content accuracy when affected.
+7. Report what changed, what was validated, and every unresolved content dependency or conflict.
 
 Do not proceed past an approval gate on the user's behalf.
 
 ## Validation
 
-Once the relevant files exist, the baseline checks are:
+Once the revised modules exist, baseline checks are:
 
 ```bash
 python -m pip check
-python -m compileall app.py portfolio_data.py
+python -m compileall app.py portfolio_data.py views
 streamlit run app.py --server.headless true
 ```
 
-The dependency and compilation checks must exit successfully. The Streamlit command must start without an uncaught exception and be stopped after the smoke test.
+The dependency and compilation checks must exit successfully. The Streamlit app must start without an uncaught exception and be stopped after a smoke test unless the user asks to keep it running.
 
-After significant visual or content changes, also verify:
+After significant changes, also verify:
 
-- All eight sections exist in the approved order.
-- Content comes from `portfolio_data.py`.
-- Local images, CSS, links, and resume behavior work.
+- Top navigation order is Home, Projects, Contact.
+- All three pages load directly and through navigation.
+- Home contains no project metrics or detailed project evidence.
+- All six project cards exist and detail actions map to the correct records.
+- Project detail renders only populated, verified fields.
+- Contact includes only verified public values; there is no form.
+- Portfolio facts and copy come from `portfolio_data.py`.
+- The profile image, CSS, external links, and resume download work.
 - Mobile and desktop layouts remain usable.
 - Keyboard navigation, focus, contrast, headings, and image alternatives remain accessible.
-- No placeholder, invented claim, broken link, debug output, or unapproved remote request is present.
+- No fabricated content, release placeholder, broken link, debug output, analytics, or unapproved remote request is present.
 
-Run only checks that are available for the current phase. Never claim a check passed unless it was actually run.
+Never claim a check passed unless it was actually run.
 
 ## Deployment boundary
 
-Streamlit Community Cloud is the only approved deployment target for version 1, but deployment is a separate user-authorized action.
+Streamlit Community Cloud is the only approved version 1 deployment target, but deployment is always a separate user-authorized action.
 
-Without explicit approval, do not:
+Without explicit deployment approval, do not:
 
 - Connect or authorize a Git provider or Streamlit account
 - Create, update, restart, share, or delete a cloud app
 - Change Community Cloud settings, secrets, domains, or access controls
 - Publish a preview or production URL
 
-Local development and local validation do not authorize cloud activity.
+Local development and validation do not authorize cloud activity.
 
 ## Git and safety
 

@@ -55,24 +55,25 @@ def page_intro(kicker: str, title: str, copy: str) -> None:
 
 
 def home_page() -> None:
-    st.html(
-        f"""
-        <section class="hero-band">
-            <p class="eyebrow light">Portfolio</p>
-            <h1>{safe(PROFILE['name']).upper()}</h1>
-            <p class="hero-role">{safe(PROFILE['headline'])}</p>
-            <p class="hero-sub">{safe(PROFILE['subheadline'])}</p>
-        </section>
-        """
-    )
-
-    image_col, about_col = st.columns(
-        [0.8, 1.35],
+    hero_text, hero_image = st.columns(
+        [1.08, 0.92],
         gap="large",
         vertical_alignment="center",
     )
 
-    with image_col:
+    with hero_text:
+        st.html(
+            f"""
+            <section class="hero-band">
+                <p class="eyebrow light">Portfolio</p>
+                <h1>{safe(PROFILE['name']).upper()}</h1>
+                <p class="hero-role">{safe(PROFILE['headline'])}</p>
+                <p class="hero-sub">{safe(PROFILE['subheadline'])}</p>
+            </section>
+            """
+        )
+
+    with hero_image:
         st.image(
             ROOT / PROFILE["image"],
             caption=None,
@@ -81,11 +82,20 @@ def home_page() -> None:
         )
         st.caption(PROFILE["location"])
 
+    st.divider()
+
+    about_col, work_col = st.columns(
+        [1.45, 0.75],
+        gap="large",
+        vertical_alignment="top",
+    )
+
     with about_col:
         st.markdown("## About Me")
         for paragraph in PROFILE["about"]:
             st.write(paragraph)
 
+    with work_col:
         st.markdown("### How I work")
         pills = "".join(
             f'<span class="pill">{safe(item)}</span>'

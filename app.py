@@ -20,17 +20,26 @@ def load_css() -> None:
 
 
 def top_navigation() -> str:
-    brand_col, nav_col = st.columns([0.85, 2.15], vertical_alignment="center")
-    with brand_col:
-        st.html('<div class="nav-brand">Portfolio</div>')
-    with nav_col:
-        return st.radio(
-            "Navigation",
-            ("Home", "Resume", "Projects", "Contact"),
-            horizontal=True,
-            label_visibility="collapsed",
-            key="main_nav",
+    pages = ("Home", "Resume", "Projects", "Contact")
+    requested = st.query_params.get("page", "Home")
+    active = requested if requested in pages else "Home"
+
+    links = "".join(
+        (
+            f'<a class="nav-link{" active" if page == active else ""}" '
+            f'href="?page={page}" target="_self">{page}</a>'
         )
+        for page in pages
+    )
+    st.html(
+        f"""
+        <nav class="portfolio-nav" aria-label="Main navigation">
+            <a class="nav-brand" href="?page=Home" target="_self">Portfolio</a>
+            <div class="nav-links">{links}</div>
+        </nav>
+        """
+    )
+    return active
 
 
 def page_intro(kicker: str, title: str, copy: str) -> None:
@@ -275,7 +284,9 @@ st.set_page_config(
 
 load_css()
 active_page = top_navigation()
-st.divider()
+
+if active_page != "Projects":
+    st.session_state.selected_project = None
 
 if active_page == "Home":
     home_page()

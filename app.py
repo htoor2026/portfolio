@@ -277,18 +277,28 @@ def contact_page() -> None:
         "I'm focused on opportunities in Data Science, Machine Learning, experimentation, and applied AI.",
     )
 
-    channels = [(label, url) for label, url in SOCIALS.items() if url]
-    cols = st.columns(len(channels), gap="medium")
+    channels = [
+        (label, url)
+        for label, url in SOCIALS.items()
+        if url and label != "Email"
+    ]
+    cols = st.columns(len(channels) + 1, gap="medium")
+
     for col, (label, url) in zip(cols, channels):
         with col:
             st.link_button(label, url, use_container_width=True)
 
-    st.html(f'<p class="contact-location">{safe(PROFILE["location"])}</p>')
+    with cols[-1]:
+        st.link_button(
+            "Email",
+            f"mailto:{SOCIALS['Email']}",
+            use_container_width=True,
+        )
 
-    if SOCIALS.get("Email"):
-        st.link_button("Email", f"mailto:{SOCIALS['Email']}")
-    else:
-        st.caption("Public email will be added before deployment.")
+    st.html(
+        f'<p class="contact-location">{safe(PROFILE["location"])} · '
+        f'{safe(SOCIALS["Email"])}</p>'
+    )
 
 
 st.set_page_config(

@@ -1,320 +1,205 @@
-"""Streamlit presentation for the portfolio content."""
+"""Simple three-page Streamlit portfolio for Harkamal Toor."""
 
 from html import escape
 from pathlib import Path
-from typing import Any
 
 import streamlit as st
 
-from portfolio_data import PORTFOLIO_DATA
-
+from portfolio_data import PROFILE, PROJECTS, SOCIALS
 
 ROOT = Path(__file__).parent
-SECTIONS = {section["id"]: section for section in PORTFOLIO_DATA["sections"]}
 
 
-def text(value: Any) -> str:
-    """Escape local content before placing it in HTML."""
+def safe(value: object) -> str:
     return escape(str(value), quote=True)
 
 
-def load_local_css() -> None:
-    """Load the repository-owned stylesheet."""
+def load_css() -> None:
     css = (ROOT / "assets" / "styles.css").read_text(encoding="utf-8")
     st.html(f"<style>{css}</style>")
 
 
-def section_heading(section_id: str, intro: str) -> str:
-    section = SECTIONS[section_id]
-    heading_id = f"{section_id}-heading"
-    return f"""
-        <header class="section-heading">
-            <p class="section-index" aria-hidden="true">{text(section['title'])}</p>
-            <h2 id="{heading_id}">{text(section['title'])}</h2>
-            <p>{text(intro)}</p>
-        </header>
-    """
-
-
-def action_link(action: dict[str, str], secondary: bool = False) -> str:
-    css_class = "button button-secondary" if secondary else "button"
-    return (
-        f'<a class="{css_class}" href="{text(action["href"])}">'
-        f'{text(action["label"])}</a>'
-    )
-
-
-def render_navigation() -> str:
-    items = "".join(
-        f'<li><a href="#{text(section["id"])}">{text(section["title"])}</a></li>'
-        for section in PORTFOLIO_DATA["sections"]
-    )
-    return f"""
-        <nav class="site-nav" aria-label="Portfolio sections">
-            <ul>{items}</ul>
-        </nav>
-    """
-
-
-def render_hero() -> str:
-    identity = PORTFOLIO_DATA["identity"]
-    focus = "".join(
-        f'<li>{text(item)}</li>' for item in identity["focus"]
-    )
-    profile = f"""
-        <div class="profile-placeholder" role="img"
-             aria-label="{text(identity['profile_image_placeholder'])}">
-            <span>{text(identity['profile_image_initials'])}</span>
-            <p>{text(identity['profile_image_placeholder'])}</p>
-        </div>
-    """
-    return f"""
-        <section id="hero" class="portfolio-hero" aria-labelledby="hero-heading">
-            <div class="hero-panel">
-                <div class="hero-layout">
-                    <div class="hero-copy">
-                        <p class="hero-eyebrow">{text(identity['eyebrow'])}</p>
-                        <h1 id="hero-heading">{text(identity['name'])}</h1>
-                        <p class="hero-headline">{text(identity['headline'])}</p>
-                        <p class="hero-summary">{text(identity['summary'])}</p>
-                        <ul class="focus-list" aria-label="Professional focus">{focus}</ul>
-                        <p class="hero-location">{text(identity['location'])}</p>
-                        <div class="hero-actions">
-                            {action_link(identity['primary_action'])}
-                            {action_link(identity['secondary_action'], secondary=True)}
-                        </div>
-                    </div>
-                    {profile}
-                </div>
-            </div>
-        </section>
-    """
-
-
-def render_project_card(project: dict[str, Any]) -> str:
-    highlights = ""
-    if project["highlights"]:
-        items = "".join(
-            f"<li>{text(item)}</li>" for item in project["highlights"]
-        )
-        highlights = f'<ul class="project-highlights">{items}</ul>'
-
-    note = ""
-    if project["note"]:
-        note = f'<p class="placeholder-note">{text(project["note"])}</p>'
-
-    link = ""
-    if project["link"]:
-        link = (
-            f'<a class="text-link" href="{text(project["link"])}" '
-            'target="_blank" rel="noreferrer">'
-            f'{text(project["link_label"])}</a>'
-        )
-
-    placeholder_class = " is-placeholder" if project["is_placeholder"] else ""
-    return f"""
-        <article class="project-card{placeholder_class}">
-            <p class="card-status">{text(project['status'])}</p>
-            <h3>{text(project['title'])}</h3>
-            <p class="project-purpose">{text(project['purpose'])}</p>
-            {highlights}
-            {note}
-            {link}
-        </article>
-    """
-
-
-def render_projects() -> str:
-    cards = "".join(
-        render_project_card(project) for project in PORTFOLIO_DATA["projects"]
-    )
-    return f"""
-        <section id="featured-projects" class="portfolio-section"
-                 aria-labelledby="featured-projects-heading">
-            {section_heading('featured-projects', PORTFOLIO_DATA['projects_intro'])}
-            <div class="project-grid">{cards}</div>
-        </section>
-    """
-
-
-def render_metric(metric: dict[str, str]) -> str:
-    return f"""
-        <div class="metric-card">
-            <p class="metric-value">{text(metric['value'])}</p>
-            <p class="metric-label">{text(metric['label'])}</p>
-        </div>
-    """
-
-
-def render_result_group(result: dict[str, Any]) -> str:
-    metrics = "".join(render_metric(metric) for metric in result["metrics"])
-    decision = ""
-    if result["decision"]:
-        decision = f"""
-            <div class="decision-callout">
-                <p>{text(result['decision_label'])}</p>
-                <strong>{text(result['decision'])}</strong>
-            </div>
-        """
-    return f"""
-        <article class="result-group">
-            <header>
-                <h3>{text(result['title'])}</h3>
-                <p>{text(result['summary'])}</p>
-            </header>
-            <div class="metrics-grid">{metrics}</div>
-            {decision}
-        </article>
-    """
-
-
-def render_results() -> str:
-    groups = "".join(
-        render_result_group(result) for result in PORTFOLIO_DATA["results"]
-    )
-    return f"""
-        <section id="project-results" class="portfolio-section"
-                 aria-labelledby="project-results-heading">
-            {section_heading('project-results', PORTFOLIO_DATA['results_intro'])}
-            <div class="results-stack">{groups}</div>
-        </section>
-    """
-
-
-def render_skills() -> str:
-    groups = []
-    for skill_group in PORTFOLIO_DATA["skills"]:
-        items = "".join(
-            f"<li>{text(item)}</li>" for item in skill_group["items"]
-        )
-        groups.append(
-            f"""
-            <article class="skill-group">
-                <h3>{text(skill_group['category'])}</h3>
-                <ul>{items}</ul>
-            </article>
-            """
-        )
-    return f"""
-        <section id="technical-skills" class="portfolio-section"
-                 aria-labelledby="technical-skills-heading">
-            {section_heading('technical-skills', PORTFOLIO_DATA['skills_intro'])}
-            <div class="skills-grid">{''.join(groups)}</div>
-        </section>
-    """
-
-
-def render_about() -> str:
-    about = PORTFOLIO_DATA["about"]
-    paragraphs = "".join(
-        f"<p>{text(paragraph)}</p>" for paragraph in about["paragraphs"]
-    )
-    return f"""
-        <section id="about" class="portfolio-section" aria-labelledby="about-heading">
-            {section_heading('about', about['intro'])}
-            <div class="prose-card">{paragraphs}</div>
-        </section>
-    """
-
-
-def render_education_experience() -> str:
-    content = PORTFOLIO_DATA["education_experience"]
-    education = "".join(
+def page_intro(kicker: str, title: str, copy: str) -> None:
+    st.html(
         f"""
-        <article class="timeline-card">
-            <p class="card-label">Education</p>
-            <h3>{text(item['credential'])}</h3>
-            <p>{text(item['institution'])}</p>
-        </article>
+        <section class="page-intro">
+            <p class="eyebrow">{safe(kicker)}</p>
+            <h1>{safe(title)}</h1>
+            <p>{safe(copy)}</p>
+        </section>
         """
-        for item in content["education"]
     )
-    experience = "".join(
+
+
+def home_page() -> None:
+    st.html(
         f"""
-        <article class="timeline-card is-placeholder">
-            <p class="card-label">Experience</p>
-            <h3>{text(item['role'])}</h3>
-        </article>
+        <section class="hero-band">
+            <p class="eyebrow light">Portfolio</p>
+            <h1>{safe(PROFILE['name']).upper()}</h1>
+            <p class="hero-role">{safe(PROFILE['headline'])}</p>
+            <p class="hero-sub">{safe(PROFILE['subheadline'])}</p>
+        </section>
         """
-        for item in content["experience"]
     )
-    return f"""
-        <section id="education-experience" class="portfolio-section"
-                 aria-labelledby="education-experience-heading">
-            {section_heading('education-experience', content['intro'])}
-            <div class="timeline-grid">{education}{experience}</div>
-        </section>
-    """
 
+    image_col, about_col = st.columns([0.8, 1.35], gap="large", vertical_alignment="center")
 
-def render_resume() -> str:
-    resume = PORTFOLIO_DATA["resume"]
-    return f"""
-        <section id="resume" class="portfolio-section" aria-labelledby="resume-heading">
-            {section_heading('resume', resume['intro'])}
-            <div class="placeholder-panel">
-                <p>{text(resume['message'])}</p>
-            </div>
-        </section>
-    """
-
-
-def render_contact_channel(channel: dict[str, Any]) -> str:
-    if channel["url"]:
-        return (
-            f'<a class="contact-card" href="{text(channel["url"])}" '
-            'target="_blank" rel="noreferrer">'
-            f'<span>{text(channel["label"])}</span><strong>Open profile</strong></a>'
+    with image_col:
+        st.image(
+            ROOT / PROFILE["image"],
+            caption=None,
+            use_container_width=True,
         )
-    return f"""
-        <div class="contact-card is-placeholder">
-            <span>{text(channel['label'])}</span>
-            <strong>{text(channel['placeholder'])}</strong>
-        </div>
-    """
+        st.caption(PROFILE["location"])
 
+    with about_col:
+        st.markdown("## About Me")
+        for paragraph in PROFILE["about"]:
+            st.write(paragraph)
 
-def render_contact() -> str:
-    contact = PORTFOLIO_DATA["contact"]
-    channels = "".join(
-        render_contact_channel(channel) for channel in contact["channels"]
+        st.markdown("### How I work")
+        pills = "".join(f'<span class="pill">{safe(item)}</span>' for item in PROFILE["personality"])
+        st.html(f'<div class="pill-row">{pills}</div>')
+
+    st.divider()
+    st.markdown("## Technical Skills")
+    skill_html = "".join(f'<span class="skill-pill">{safe(item)}</span>' for item in PROFILE["skills"])
+    st.html(f'<div class="skill-row">{skill_html}</div>')
+
+    st.html(f'<p class="education-line">{safe(PROFILE["education"])}</p>')
+
+    st.divider()
+    st.markdown("## Resume")
+    st.write("Want the full technical background, projects, skills, and experience? Download my current resume.")
+    resume_path = ROOT / PROFILE["resume"]
+    st.download_button(
+        "Download Resume",
+        data=resume_path.read_bytes(),
+        file_name="Harkamal_Toor_Data_Scientist_Resume.pdf",
+        mime="application/pdf",
+        type="primary",
+        use_container_width=False,
     )
-    return f"""
-        <section id="contact" class="portfolio-section" aria-labelledby="contact-heading">
-            {section_heading('contact', contact['intro'])}
-            <div class="contact-location">
-                <span>{text(contact['location_label'])}</span>
-                <strong>{text(contact['location'])}</strong>
-            </div>
-            <div class="contact-grid">{channels}</div>
+
+
+def project_card(project: dict) -> None:
+    with st.container(border=True):
+        st.html(f'<p class="project-category">{safe(project["category"])}</p>')
+        st.markdown(f"### {project['title']}")
+        st.write(project["summary"])
+        st.html(f'<p class="featured-result">{safe(project["featured_result"])}</p>')
+        tech = "".join(f'<span class="mini-pill">{safe(item)}</span>' for item in project["technologies"])
+        st.html(f'<div class="mini-pill-row">{tech}</div>')
+
+        a, b, c = st.columns([1.15, 1, 1])
+        with a:
+            if st.button("View Project", key=f"view-{project['slug']}", use_container_width=True):
+                st.session_state.selected_project = project["slug"]
+                st.rerun()
+        with b:
+            st.link_button("GitHub", project["github"], use_container_width=True)
+        with c:
+            if project["live"]:
+                st.link_button("Live Demo", project["live"], use_container_width=True)
+
+
+def project_detail(project: dict) -> None:
+    if st.button("← Back to all projects"):
+        st.session_state.selected_project = None
+        st.rerun()
+
+    st.html(
+        f"""
+        <section class="project-detail-hero">
+            <p class="project-category">{safe(project['category'])}</p>
+            <h1>{safe(project['title'])}</h1>
+            <p>{safe(project['summary'])}</p>
         </section>
-    """
+        """
+    )
+
+    st.markdown("### Problem")
+    st.write(project["problem"])
+
+    st.markdown("### Approach")
+    st.write(project["approach"])
+
+    st.markdown("### Technologies")
+    tech = "".join(f'<span class="skill-pill">{safe(item)}</span>' for item in project["technologies"])
+    st.html(f'<div class="skill-row">{tech}</div>')
+
+    st.markdown("### Results")
+    for result in project["results"]:
+        st.markdown(f"- {result}")
+
+    st.markdown("### Decision / Takeaway")
+    st.info(project["decision"])
+
+    left, right = st.columns(2)
+    with left:
+        st.link_button("View on GitHub", project["github"], use_container_width=True)
+    with right:
+        if project["live"]:
+            st.link_button("Open Live Demo", project["live"], use_container_width=True)
 
 
-def render_page() -> str:
-    return f"""
-        <a class="skip-link" href="#main-content">Skip to main content</a>
-        {render_navigation()}
-        <main id="main-content">
-            {render_hero()}
-            {render_projects()}
-            {render_results()}
-            {render_skills()}
-            {render_about()}
-            {render_education_experience()}
-            {render_resume()}
-            {render_contact()}
-        </main>
-        <footer class="site-footer"><p>{text(PORTFOLIO_DATA['footer'])}</p></footer>
-    """
+def projects_page() -> None:
+    selected = st.session_state.get("selected_project")
+    if selected:
+        project = next((item for item in PROJECTS if item["slug"] == selected), None)
+        if project:
+            project_detail(project)
+            return
+
+    page_intro(
+        "Selected Work",
+        "Projects",
+        "A focused collection of experimentation, forecasting, decision-support, AI analytics, and production-oriented machine learning work.",
+    )
+
+    for row_start in range(0, len(PROJECTS), 3):
+        cols = st.columns(3, gap="medium")
+        for col, project in zip(cols, PROJECTS[row_start:row_start + 3]):
+            with col:
+                project_card(project)
+
+
+def contact_page() -> None:
+    page_intro(
+        "Contact",
+        "Let's Connect",
+        "I'm focused on opportunities in Data Science, Machine Learning, experimentation, and applied AI.",
+    )
+
+    channels = [(label, url) for label, url in SOCIALS.items() if url]
+    cols = st.columns(len(channels), gap="medium")
+    for col, (label, url) in zip(cols, channels):
+        with col:
+            st.link_button(label, url, use_container_width=True)
+
+    st.html(f'<p class="contact-location">{safe(PROFILE["location"])}</p>')
+
+    if SOCIALS.get("Email"):
+        st.link_button("Email", f"mailto:{SOCIALS['Email']}")
+    else:
+        st.caption("Public email will be added before deployment.")
 
 
 st.set_page_config(
-    page_title=PORTFOLIO_DATA["identity"]["page_title"],
+    page_title="Harkamal Toor | Data Science Portfolio",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
 
-load_local_css()
-st.html(render_page())
+load_css()
+
+pages = [
+    st.Page(home_page, title="Home", default=True),
+    st.Page(projects_page, title="Projects"),
+    st.Page(contact_page, title="Contact"),
+]
+
+navigation = st.navigation(pages, position="top")
+navigation.run()

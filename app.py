@@ -193,6 +193,7 @@ def project_card(project: dict) -> None:
                 st.link_button(
                     "View Project",
                     project["live"],
+                    type="primary",
                     use_container_width=True,
                 )
             else:

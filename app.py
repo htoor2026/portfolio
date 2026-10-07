@@ -169,98 +169,44 @@ def project_card(project: dict) -> None:
         st.html(
             f'<p class="featured-result">{safe(project["featured_result"])}</p>'
         )
+
         tech = "".join(
             f'<span class="mini-pill">{safe(item)}</span>'
             for item in project["technologies"]
         )
         st.html(f'<div class="mini-pill-row">{tech}</div>')
 
-        a, b, c = st.columns([1.15, 1, 1])
-        with a:
-            if st.button(
-                "View Project",
-                key=f"view-{project['slug']}",
-                use_container_width=True,
-            ):
-                st.session_state.selected_project = project["slug"]
-                st.rerun()
-        with b:
-            st.link_button("GitHub", project["github"], use_container_width=True)
-        with c:
+        live_col, github_col = st.columns(2)
+
+        with live_col:
             if project["live"]:
                 st.link_button(
-                    "Live Demo",
+                    "View Project",
                     project["live"],
                     use_container_width=True,
                 )
+            else:
+                st.button(
+                    "View Project",
+                    key=f"missing-live-{project['slug']}",
+                    disabled=True,
+                    use_container_width=True,
+                    help="Live application link has not been added yet.",
+                )
 
-
-def project_detail(project: dict) -> None:
-    if st.button("← Back to all projects"):
-        st.session_state.selected_project = None
-        st.rerun()
-
-    st.html(
-        f"""
-        <section class="project-detail-hero">
-            <p class="project-category">{safe(project['category'])}</p>
-            <h1>{safe(project['title'])}</h1>
-            <p>{safe(project['summary'])}</p>
-        </section>
-        """
-    )
-
-    st.markdown("### Problem")
-    st.write(project["problem"])
-
-    st.markdown("### Approach")
-    st.write(project["approach"])
-
-    st.markdown("### Technologies")
-    tech = "".join(
-        f'<span class="skill-pill">{safe(item)}</span>'
-        for item in project["technologies"]
-    )
-    st.html(f'<div class="skill-row">{tech}</div>')
-
-    st.markdown("### Results")
-    for result in project["results"]:
-        st.markdown(f"- {result}")
-
-    st.markdown("### Decision / Takeaway")
-    st.info(project["decision"])
-
-    left, right = st.columns(2)
-    with left:
-        st.link_button(
-            "View on GitHub",
-            project["github"],
-            use_container_width=True,
-        )
-    with right:
-        if project["live"]:
+        with github_col:
             st.link_button(
-                "Open Live Demo",
-                project["live"],
+                "GitHub",
+                project["github"],
                 use_container_width=True,
             )
 
 
 def projects_page() -> None:
-    selected = st.session_state.get("selected_project")
-    if selected:
-        project = next(
-            (item for item in PROJECTS if item["slug"] == selected),
-            None,
-        )
-        if project:
-            project_detail(project)
-            return
-
     page_intro(
         "Selected Work",
         "Projects",
-        "A focused collection of experimentation, forecasting, decision-support, AI analytics, and production-oriented machine learning work.",
+        "Each project links directly to its live application when a public deployment is available, with GitHub alongside it.",
     )
 
     for row_start in range(0, len(PROJECTS), 3):
@@ -310,9 +256,6 @@ st.set_page_config(
 
 load_css()
 active_page = top_navigation()
-
-if active_page != "Projects":
-    st.session_state.selected_project = None
 
 if active_page == "Home":
     home_page()

@@ -172,7 +172,7 @@ PROJECTS = (
         ),
         "decision": "Treat weather and news as context, not proof of delay causation; return an insufficient-evidence response when the stored data cannot establish a cause.",
         "github": "https://github.com/htoor2026/flight-pulse",
-        "live": None,
+        "live": "https://flight-pulse.streamlit.app/",
     },
     {
         "slug": "localmart-ai",
@@ -192,7 +192,7 @@ PROJECTS = (
         ),
         "decision": "Use treatment effect together with margin, discount economics, inventory, and operational constraints; the largest predicted uplift is not necessarily the most profitable promotion.",
         "github": "https://github.com/htoor2026/local-mart",
-        "live": None,
+        "live": "https://local-mart.streamlit.app/",
     },
     {
         "slug": "ab-testing",
@@ -212,7 +212,7 @@ PROJECTS = (
         ),
         "decision": "Do not roll personalization out globally. Personalize returning users, keep new users on the popularity baseline, and do not use individual uplift targeting yet.",
         "github": "https://github.com/htoor2026/ab-testing-movie-app",
-        "live": None,
+        "live": "https://movie-ab-testing.streamlit.app/",
     },
     {
         "slug": "toronto-climate",
@@ -252,7 +252,7 @@ PROJECTS = (
         ),
         "decision": "Use the behavior-only XGBoost model for churn ranking and keep subscription economics downstream for prioritization rather than forcing them into the risk model.",
         "github": "https://github.com/htoor2026/fighting_with_churn",
-        "live": None,
+        "live": "https://fightchurn.streamlit.app/",
     },
     {
         "slug": "mlops-house-price",
@@ -272,6 +272,6 @@ PROJECTS = (
         ),
         "decision": "Treat drift as supporting evidence rather than an automatic retraining trigger, and promote candidates only when explicit quality gates are satisfied.",
         "github": "https://github.com/htoor2026/End-To-End-ML-Workflow",
-        "live": None,
+        "live": "https://house-price-mlops-6nsy.onrender.com/app",
     },
 )

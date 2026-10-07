@@ -1,4 +1,4 @@
-"""Simple Streamlit portfolio for Harkamal S."""
+"""Simple Streamlit portfolio for Harkamal Singh."""
 
 from html import escape
 from pathlib import Path
@@ -146,7 +146,7 @@ def resume_page() -> None:
     st.pdf(
         resume_path,
         height=1100,
-        alt="Harkamal S data scientist resume",
+        alt="Harkamal Singh data scientist resume",
     )
 
     st.divider()
@@ -259,7 +259,7 @@ def contact_page() -> None:
 
 
 st.set_page_config(
-    page_title="Harkamal S | Data Science Portfolio",
+    page_title="Harkamal Singh | Data Science Portfolio",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="collapsed",

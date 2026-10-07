@@ -1,2 +1,2 @@
 # Runtime: Python 3.13
-streamlit==1.65.0
+streamlit[pdf]==1.65.0

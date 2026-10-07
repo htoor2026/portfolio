@@ -1,12 +1,12 @@
-"""Verified content for Harkamal Toor's portfolio."""
+"""Verified content for Harkamal S's portfolio."""
 
 PROFILE = {
-    "name": "Harkamal Toor",
+    "name": "Harkamal S",
     "headline": "Data Scientist | Machine Learning | Experimentation",
     "subheadline": "Python • SQL • Statistics • ML Systems",
     "location": "Greater Toronto Area, Canada",
     "image": "assets/images/profile.png",
-    "image_alt": "Professional headshot of Harkamal Toor",
+    "image_alt": "Professional headshot of Harkamal S",
     "about": (
         "Two years ago, I came to Canada to study Computer Programming at Conestoga College. "
         "At the time, I had almost no background in coding and was starting from scratch.",
@@ -28,27 +28,87 @@ PROFILE = {
         "Persistent",
         "Diplomatic",
     ),
-    "skills": (
-        "Python",
-        "SQL",
-        "pandas",
-        "NumPy",
-        "scikit-learn",
-        "XGBoost",
-        "CatBoost",
-        "LightGBM",
-        "A/B Testing",
-        "Causal Inference",
-        "Time Series",
-        "MLflow",
-        "ZenML",
-        "FastAPI",
-        "Docker",
-        "Streamlit",
-    ),
-    "education": "Computer Programming Diploma — Conestoga College, 2024–2026",
     "resume": "assets/resume.pdf",
 }
+
+EDUCATION = (
+    {
+        "credential": "Computer Programming Diploma",
+        "institution": "Conestoga College",
+        "location": "Waterloo, Ontario",
+        "dates": "2024–2026",
+        "areas": (
+            "Programming",
+            "Data Structures & Algorithms",
+            "Object-Oriented Programming",
+            "Databases",
+            "Web Development",
+            "Software Quality Assurance",
+        ),
+    },
+)
+
+SKILL_GROUPS = (
+    {
+        "category": "Core Data Science",
+        "items": (
+            "Statistics & Probability",
+            "Machine Learning",
+            "Feature Engineering",
+            "Data Analysis / EDA",
+            "A/B Testing & Experimentation",
+            "Causal Inference",
+            "Time Series Forecasting",
+            "Deep Learning",
+        ),
+    },
+    {
+        "category": "Programming & Data",
+        "items": (
+            "Python",
+            "SQL",
+            "pandas",
+            "NumPy",
+            "MySQL",
+            "MongoDB",
+            "Redis",
+        ),
+    },
+    {
+        "category": "Modeling Tools",
+        "items": (
+            "scikit-learn",
+            "XGBoost",
+            "CatBoost",
+            "LightGBM",
+            "TensorFlow / Keras",
+        ),
+    },
+    {
+        "category": "Engineering & MLOps",
+        "items": (
+            "Git / GitHub",
+            "Software Engineering Basics",
+            "Data Engineering Basics",
+            "FastAPI",
+            "Docker",
+            "MLflow",
+            "ZenML",
+            "GitHub Actions",
+            "pytest",
+        ),
+    },
+    {
+        "category": "Business & Communication",
+        "items": (
+            "Business / Product Thinking",
+            "Data Visualization & Communication",
+            "Streamlit",
+            "Plotly",
+            "Matplotlib",
+        ),
+    },
+)
 
 SOCIALS = {
     "GitHub": "https://github.com/htoor2026",

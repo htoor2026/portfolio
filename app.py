@@ -66,13 +66,18 @@ def home_page() -> None:
         """
     )
 
-    image_col, about_col = st.columns([0.8, 1.35], gap="large", vertical_alignment="center")
+    image_col, about_col = st.columns(
+        [0.8, 1.35],
+        gap="large",
+        vertical_alignment="center",
+    )
 
     with image_col:
         st.image(
             ROOT / PROFILE["image"],
             caption=None,
             use_container_width=True,
+            alt=PROFILE["image_alt"],
         )
         st.caption(PROFILE["location"])
 
@@ -88,53 +93,64 @@ def home_page() -> None:
         )
         st.html(f'<div class="pill-row">{pills}</div>')
 
+    st.divider()
+    st.markdown("## Technical Skills")
+
+    for row_start in range(0, len(SKILL_GROUPS), 2):
+        cols = st.columns(2, gap="medium")
+        for col, group in zip(cols, SKILL_GROUPS[row_start : row_start + 2]):
+            with col:
+                with st.container(border=True):
+                    st.markdown(f"### {group['category']}")
+                    items = "".join(
+                        f'<span class="skill-pill">{safe(item)}</span>'
+                        for item in group["items"]
+                    )
+                    st.html(f'<div class="skill-row">{items}</div>')
+
+    st.divider()
+    st.markdown("## Education")
+
+    for item in EDUCATION:
+        with st.container(border=True):
+            st.html('<p class="resume-label">Education</p>')
+            st.markdown(f"### {item['credential']}")
+            st.markdown(f"**{item['institution']}**")
+            st.write(f"{item['location']} · {item['dates']}")
+            st.markdown("**Relevant areas**")
+            areas = "".join(
+                f'<span class="skill-pill">{safe(area)}</span>'
+                for area in item["areas"]
+            )
+            st.html(f'<div class="skill-row">{areas}</div>')
+
 
 def resume_page() -> None:
     page_intro(
         "Resume",
-        "Technical Skills & Education",
-        "A concise view of the technical foundation I use across data science, machine learning, experimentation, and end-to-end ML projects.",
+        "Resume",
+        "View the complete resume here without downloading it. A download option is available at the bottom.",
     )
 
-    skills_col, education_col = st.columns([1.35, 0.9], gap="large")
-
-    with skills_col:
-        st.markdown("## Technical Skills")
-        for group in SKILL_GROUPS:
-            with st.container(border=True):
-                st.markdown(f"### {group['category']}")
-                items = "".join(
-                    f'<span class="skill-pill">{safe(item)}</span>'
-                    for item in group["items"]
-                )
-                st.html(f'<div class="skill-row">{items}</div>')
-
-    with education_col:
-        st.markdown("## Education")
-        for item in EDUCATION:
-            with st.container(border=True):
-                st.html('<p class="resume-label">Education</p>')
-                st.markdown(f"### {item['credential']}")
-                st.markdown(f"**{item['institution']}**")
-                st.write(item["location"])
-                st.write(item["dates"])
-                st.markdown("**Relevant areas**")
-                for area in item["areas"]:
-                    st.markdown(f"- {area}")
+    resume_path = ROOT / PROFILE["resume"]
+    st.pdf(
+        resume_path,
+        height=1100,
+        alt="Harkamal S data scientist resume",
+    )
 
     st.divider()
     st.html(
         """
         <div class="download-copy">
-            <h2>Full Resume</h2>
-            <p>Download the complete resume for project details, tools, experience, and technical background.</p>
+            <h2>Download Resume</h2>
+            <p>Prefer a local copy? Download the complete PDF below.</p>
         </div>
         """
     )
 
     left, center, right = st.columns([1.35, 1, 1.35])
     with center:
-        resume_path = ROOT / PROFILE["resume"]
         st.download_button(
             "Download Resume",
             data=resume_path.read_bytes(),

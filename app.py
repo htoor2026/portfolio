@@ -1,11 +1,11 @@
-"""Simple three-page Streamlit portfolio for Harkamal Toor."""
+"""Simple Streamlit portfolio for Harkamal S."""
 
 from html import escape
 from pathlib import Path
 
 import streamlit as st
 
-from portfolio_data import PROFILE, PROJECTS, SOCIALS
+from portfolio_data import EDUCATION, PROFILE, PROJECTS, SKILL_GROUPS, SOCIALS
 
 ROOT = Path(__file__).parent
 
@@ -17,6 +17,20 @@ def safe(value: object) -> str:
 def load_css() -> None:
     css = (ROOT / "assets" / "styles.css").read_text(encoding="utf-8")
     st.html(f"<style>{css}</style>")
+
+
+def top_navigation() -> str:
+    brand_col, nav_col = st.columns([0.85, 2.15], vertical_alignment="center")
+    with brand_col:
+        st.html('<div class="nav-brand">Portfolio</div>')
+    with nav_col:
+        return st.radio(
+            "Navigation",
+            ("Home", "Resume", "Projects", "Contact"),
+            horizontal=True,
+            label_visibility="collapsed",
+            key="main_nav",
+        )
 
 
 def page_intro(kicker: str, title: str, copy: str) -> None:
@@ -59,28 +73,67 @@ def home_page() -> None:
             st.write(paragraph)
 
         st.markdown("### How I work")
-        pills = "".join(f'<span class="pill">{safe(item)}</span>' for item in PROFILE["personality"])
+        pills = "".join(
+            f'<span class="pill">{safe(item)}</span>'
+            for item in PROFILE["personality"]
+        )
         st.html(f'<div class="pill-row">{pills}</div>')
 
-    st.divider()
-    st.markdown("## Technical Skills")
-    skill_html = "".join(f'<span class="skill-pill">{safe(item)}</span>' for item in PROFILE["skills"])
-    st.html(f'<div class="skill-row">{skill_html}</div>')
 
-    st.html(f'<p class="education-line">{safe(PROFILE["education"])}</p>')
-
-    st.divider()
-    st.markdown("## Resume")
-    st.write("Want the full technical background, projects, skills, and experience? Download my current resume.")
-    resume_path = ROOT / PROFILE["resume"]
-    st.download_button(
-        "Download Resume",
-        data=resume_path.read_bytes(),
-        file_name="Harkamal_Toor_Data_Scientist_Resume.pdf",
-        mime="application/pdf",
-        type="primary",
-        use_container_width=False,
+def resume_page() -> None:
+    page_intro(
+        "Resume",
+        "Technical Skills & Education",
+        "A concise view of the technical foundation I use across data science, machine learning, experimentation, and end-to-end ML projects.",
     )
+
+    skills_col, education_col = st.columns([1.35, 0.9], gap="large")
+
+    with skills_col:
+        st.markdown("## Technical Skills")
+        for group in SKILL_GROUPS:
+            with st.container(border=True):
+                st.markdown(f"### {group['category']}")
+                items = "".join(
+                    f'<span class="skill-pill">{safe(item)}</span>'
+                    for item in group["items"]
+                )
+                st.html(f'<div class="skill-row">{items}</div>')
+
+    with education_col:
+        st.markdown("## Education")
+        for item in EDUCATION:
+            with st.container(border=True):
+                st.html('<p class="resume-label">Education</p>')
+                st.markdown(f"### {item['credential']}")
+                st.markdown(f"**{item['institution']}**")
+                st.write(item["location"])
+                st.write(item["dates"])
+                st.markdown("**Relevant areas**")
+                for area in item["areas"]:
+                    st.markdown(f"- {area}")
+
+    st.divider()
+    st.html(
+        """
+        <div class="download-copy">
+            <h2>Full Resume</h2>
+            <p>Download the complete resume for project details, tools, experience, and technical background.</p>
+        </div>
+        """
+    )
+
+    left, center, right = st.columns([1.35, 1, 1.35])
+    with center:
+        resume_path = ROOT / PROFILE["resume"]
+        st.download_button(
+            "Download Resume",
+            data=resume_path.read_bytes(),
+            file_name="Harkamal_Toor_Data_Scientist_Resume.pdf",
+            mime="application/pdf",
+            type="primary",
+            use_container_width=True,
+        )
 
 
 def project_card(project: dict) -> None:
@@ -88,20 +141,33 @@ def project_card(project: dict) -> None:
         st.html(f'<p class="project-category">{safe(project["category"])}</p>')
         st.markdown(f"### {project['title']}")
         st.write(project["summary"])
-        st.html(f'<p class="featured-result">{safe(project["featured_result"])}</p>')
-        tech = "".join(f'<span class="mini-pill">{safe(item)}</span>' for item in project["technologies"])
+        st.html(
+            f'<p class="featured-result">{safe(project["featured_result"])}</p>'
+        )
+        tech = "".join(
+            f'<span class="mini-pill">{safe(item)}</span>'
+            for item in project["technologies"]
+        )
         st.html(f'<div class="mini-pill-row">{tech}</div>')
 
         a, b, c = st.columns([1.15, 1, 1])
         with a:
-            if st.button("View Project", key=f"view-{project['slug']}", use_container_width=True):
+            if st.button(
+                "View Project",
+                key=f"view-{project['slug']}",
+                use_container_width=True,
+            ):
                 st.session_state.selected_project = project["slug"]
                 st.rerun()
         with b:
             st.link_button("GitHub", project["github"], use_container_width=True)
         with c:
             if project["live"]:
-                st.link_button("Live Demo", project["live"], use_container_width=True)
+                st.link_button(
+                    "Live Demo",
+                    project["live"],
+                    use_container_width=True,
+                )
 
 
 def project_detail(project: dict) -> None:
@@ -126,7 +192,10 @@ def project_detail(project: dict) -> None:
     st.write(project["approach"])
 
     st.markdown("### Technologies")
-    tech = "".join(f'<span class="skill-pill">{safe(item)}</span>' for item in project["technologies"])
+    tech = "".join(
+        f'<span class="skill-pill">{safe(item)}</span>'
+        for item in project["technologies"]
+    )
     st.html(f'<div class="skill-row">{tech}</div>')
 
     st.markdown("### Results")
@@ -138,16 +207,27 @@ def project_detail(project: dict) -> None:
 
     left, right = st.columns(2)
     with left:
-        st.link_button("View on GitHub", project["github"], use_container_width=True)
+        st.link_button(
+            "View on GitHub",
+            project["github"],
+            use_container_width=True,
+        )
     with right:
         if project["live"]:
-            st.link_button("Open Live Demo", project["live"], use_container_width=True)
+            st.link_button(
+                "Open Live Demo",
+                project["live"],
+                use_container_width=True,
+            )
 
 
 def projects_page() -> None:
     selected = st.session_state.get("selected_project")
     if selected:
-        project = next((item for item in PROJECTS if item["slug"] == selected), None)
+        project = next(
+            (item for item in PROJECTS if item["slug"] == selected),
+            None,
+        )
         if project:
             project_detail(project)
             return
@@ -160,7 +240,7 @@ def projects_page() -> None:
 
     for row_start in range(0, len(PROJECTS), 3):
         cols = st.columns(3, gap="medium")
-        for col, project in zip(cols, PROJECTS[row_start:row_start + 3]):
+        for col, project in zip(cols, PROJECTS[row_start : row_start + 3]):
             with col:
                 project_card(project)
 
@@ -187,19 +267,21 @@ def contact_page() -> None:
 
 
 st.set_page_config(
-    page_title="Harkamal Toor | Data Science Portfolio",
+    page_title="Harkamal S | Data Science Portfolio",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
 
 load_css()
+active_page = top_navigation()
+st.divider()
 
-pages = [
-    st.Page(home_page, title="Home", default=True),
-    st.Page(projects_page, title="Projects"),
-    st.Page(contact_page, title="Contact"),
-]
-
-navigation = st.navigation(pages, position="top")
-navigation.run()
+if active_page == "Home":
+    home_page()
+elif active_page == "Resume":
+    resume_page()
+elif active_page == "Projects":
+    projects_page()
+else:
+    contact_page()

@@ -1,309 +1,181 @@
-"""Verified portfolio content, kept separate from Streamlit presentation."""
+"""Verified content for Harkamal Toor's portfolio."""
 
-
-PORTFOLIO_DATA = {
-    "identity": {
-        "name": "Harkamal Toor",
-        "page_title": "Harkamal Toor | Data Science Portfolio",
-        "eyebrow": "Data Science Portfolio",
-        "location": "Greater Toronto Area, Canada",
-        "headline": (
-            "Data Scientist | Machine Learning | A/B Testing & Experimentation | "
-            "Python • SQL • Statistics"
-        ),
-        "focus": (
-            "Data Science",
-            "Machine Learning",
-            "AI",
-            "A/B Testing and Experimentation",
-        ),
-        "summary": (
-            "Computer Programming background focused on Data Science, Machine "
-            "Learning, experimentation, and end-to-end problem solving for business "
-            "decisions."
-        ),
-        "primary_action": {
-            "label": "Explore selected work",
-            "href": "#featured-projects",
-        },
-        "secondary_action": {
-            "label": "Contact",
-            "href": "#contact",
-        },
-        "profile_image": None,
-        "profile_image_alt": None,
-        "profile_image_initials": "HT",
-        "profile_image_placeholder": (
-            "PLACEHOLDER — verified profile image not supplied."
-        ),
-    },
-    "sections": (
-        {"id": "hero", "title": "Hero"},
-        {"id": "featured-projects", "title": "Featured Projects"},
-        {"id": "project-results", "title": "Project Results / Impact"},
-        {"id": "technical-skills", "title": "Technical Skills"},
-        {"id": "about", "title": "About"},
-        {"id": "education-experience", "title": "Education / Experience"},
-        {"id": "resume", "title": "Resume"},
-        {"id": "contact", "title": "Contact"},
+PROFILE = {
+    "name": "Harkamal Toor",
+    "headline": "Data Scientist | Machine Learning | Experimentation",
+    "subheadline": "Python • SQL • Statistics • ML Systems",
+    "location": "Greater Toronto Area, Canada",
+    "image": "assets/images/profile.png",
+    "image_alt": "Professional headshot of Harkamal Toor",
+    "about": (
+        "Two years ago, I came to Canada to study Computer Programming at Conestoga College. "
+        "At the time, I had almost no background in coding and was starting from scratch.",
+        "Through supportive professors, coursework, and a lot of independent learning, I became "
+        "fascinated by programming and data. As AI was rapidly gaining attention, I started exploring "
+        "the intersection of data, machine learning, and artificial intelligence. That is where I "
+        "discovered Data Science.",
+        "For the past year and a half, I have been steadily building my skills through projects and "
+        "hands-on learning. The journey has had plenty of difficult periods and failed approaches, "
+        "but I kept learning, rebuilding, and moving forward. Today, I focus on solving problems end "
+        "to end: understanding the question, working with the data, evaluating evidence carefully, "
+        "and turning results into practical decisions.",
     ),
-    "projects_intro": (
-        "Selected work across applied AI, controlled experimentation, climate analysis, "
-        "predictive modeling, recommendation systems, and end-to-end ML practice."
-    ),
-    "projects": (
-        {
-            "title": "Flight Pulse",
-            "status": "Verified purpose",
-            "purpose": (
-                "AI-assisted flight delay intelligence system combining flight, "
-                "weather, and contextual information to help explain flight delays."
-            ),
-            "highlights": (),
-            "note": (
-                "PLACEHOLDER — verified technologies, quantitative results, and a "
-                "publicly accessible live-demo URL are not yet available."
-            ),
-            "is_placeholder": False,
-            "link": "https://github.com/htoor2026/flight-pulse",
-            "link_label": "GitHub",
-        },
-        {
-            "title": "A/B Testing & Personalization",
-            "status": "Verified experiment",
-            "purpose": (
-                "End-to-end controlled experiment comparing popularity-based "
-                "recommendations with personalized recommendations."
-            ),
-            "highlights": (
-                "28,000 synthetic users",
-                "+9.05% relative CTR lift",
-                "p-value: 0.0171",
-            ),
-            "note": (
-                "PLACEHOLDER — verified technologies and a live-demo URL are not yet "
-                "available."
-            ),
-            "is_placeholder": False,
-            "link": "https://github.com/htoor2026/ab-testing-movie-app",
-            "link_label": "GitHub",
-        },
-        {
-            "title": "Toronto Climate / Weather Analysis",
-            "status": "Verified analysis",
-            "purpose": "Long-term Toronto climate and time-series analysis.",
-            "highlights": (
-                "1953-05-04 through 2023-12-31",
-                "+0.218°C annual mean warming per decade",
-                "1991–2020 baseline mean: 8.8492°C",
-            ),
-            "note": None,
-            "is_placeholder": False,
-            "link": None,
-            "link_label": None,
-        },
-        {
-            "title": "Customer Churn Prediction",
-            "status": "Details pending",
-            "purpose": "PLACEHOLDER — verified project purpose is not yet available.",
-            "highlights": (),
-            "note": (
-                "PLACEHOLDER — verified technologies, results, and public links are not "
-                "yet available."
-            ),
-            "is_placeholder": True,
-            "link": None,
-            "link_label": None,
-        },
-        {
-            "title": "Retail / Recommendation Intelligence",
-            "status": "Details pending",
-            "purpose": "PLACEHOLDER — verified project purpose is not yet available.",
-            "highlights": (),
-            "note": (
-                "PLACEHOLDER — verified technologies, results, and public links are not "
-                "yet available."
-            ),
-            "is_placeholder": True,
-            "link": None,
-            "link_label": None,
-        },
-        {
-            "title": "End-to-End ML System",
-            "status": "Verified focus",
-            "purpose": "End-to-end ML workflow and engineering practices.",
-            "highlights": (),
-            "note": (
-                "PLACEHOLDER — verified technologies, results, and public links are not "
-                "yet available."
-            ),
-            "is_placeholder": False,
-            "link": None,
-            "link_label": None,
-        },
-    ),
-    "results_intro": (
-        "Verified evidence is shown only where quantitative results were supplied."
-    ),
-    "results": (
-        {
-            "title": "A/B Testing & Personalization",
-            "summary": (
-                "Controlled experiment comparing a popularity-based recommender with a "
-                "personalized treatment."
-            ),
-            "metrics": (
-                {"value": "28,000", "label": "Synthetic users"},
-                {"value": "9.343%", "label": "Control CTR"},
-                {"value": "10.188%", "label": "Treatment CTR"},
-                {"value": "+0.846 pp", "label": "Absolute lift"},
-                {"value": "+9.05%", "label": "Relative lift"},
-                {"value": "0.0171", "label": "p-value"},
-                {
-                    "value": "+0.150 to +1.541 pp",
-                    "label": "95% confidence interval",
-                },
-                {"value": "+1.595 pp", "label": "Returning-user lift"},
-                {
-                    "value": "+2.066 pp",
-                    "label": "Treatment × returning-user interaction",
-                },
-                {"value": "+27.8 ms", "label": "Latency increase"},
-            ),
-            "decision_label": "Final decision",
-            "decision": (
-                "Do not roll out globally; personalize for returning users while keeping "
-                "new users on the popularity-based recommender."
-            ),
-        },
-        {
-            "title": "Toronto Climate / Weather Analysis",
-            "summary": "Long-term Toronto climate and time-series analysis.",
-            "metrics": (
-                {
-                    "value": "1953-05-04 — 2023-12-31",
-                    "label": "Dataset coverage",
-                },
-                {"value": "8.8492°C", "label": "1991–2020 baseline mean"},
-                {"value": "+0.218°C", "label": "Annual mean trend per decade"},
-                {"value": "+0.301°C", "label": "Winter trend per decade"},
-                {"value": "+0.194°C", "label": "Spring trend per decade"},
-                {"value": "+0.263°C", "label": "Summer trend per decade"},
-                {"value": "+0.128°C", "label": "Fall trend per decade"},
-            ),
-            "decision_label": None,
-            "decision": None,
-        },
-    ),
-    "skills_intro": (
-        "Tools and methods included from the verified portfolio skill set."
+    "personality": (
+        "Creative",
+        "Analytical",
+        "Builder-minded",
+        "Clear Communicator",
+        "Persistent",
+        "Diplomatic",
     ),
     "skills": (
-        {
-            "category": "Programming & Data",
-            "items": ("Python", "SQL", "NumPy", "Pandas", "Matplotlib"),
-        },
-        {
-            "category": "Machine Learning",
-            "items": (
-                "scikit-learn",
-                "XGBoost",
-                "TensorFlow / Keras",
-                "Machine Learning",
-                "Deep Learning",
-                "Uplift Modeling",
-            ),
-        },
-        {
-            "category": "Experimentation & Statistics",
-            "items": (
-                "Statistics",
-                "A/B Testing",
-                "Hypothesis Testing",
-                "Power Analysis",
-                "Causal Inference",
-                "Time Series",
-            ),
-        },
-        {
-            "category": "Engineering & Delivery",
-            "items": (
-                "Git",
-                "Docker",
-                "FastAPI",
-                "MLflow",
-                "ZenML",
-                "Streamlit",
-            ),
-        },
+        "Python",
+        "SQL",
+        "pandas",
+        "NumPy",
+        "scikit-learn",
+        "XGBoost",
+        "CatBoost",
+        "LightGBM",
+        "A/B Testing",
+        "Causal Inference",
+        "Time Series",
+        "MLflow",
+        "ZenML",
+        "FastAPI",
+        "Docker",
+        "Streamlit",
     ),
-    "about": {
-        "intro": "Data Science, Machine Learning, and experimentation focus.",
-        "paragraphs": (
-            (
-                "Harkamal Toor has a Computer Programming background and focuses on Data "
-                "Science, Machine Learning, AI, and A/B testing."
-            ),
-            (
-                "The portfolio emphasizes end-to-end problem solving: framing a question, "
-                "working through data and modeling, evaluating evidence, and connecting "
-                "results to business decisions."
-            ),
-        ),
-    },
-    "education_experience": {
-        "intro": "Verified education and experience information.",
-        "education": (
-            {
-                "credential": "Computer Programming Diploma",
-                "institution": "Conestoga College",
-                "dates": None,
-            },
-        ),
-        "experience": (
-            {
-                "role": "PLACEHOLDER — verified experience details required.",
-                "organization": None,
-                "dates": None,
-                "highlights": (),
-            },
-        ),
-    },
-    "resume": {
-        "available": False,
-        "file": None,
-        "url": None,
-        "intro": "Resume availability and download.",
-        "message": (
-            "PLACEHOLDER — an approved public resume PDF or URL has not been supplied."
-        ),
-    },
-    "contact": {
-        "intro": (
-            "Connect through verified public professional profiles. PLACEHOLDER — a "
-            "verified public email address has not been supplied."
-        ),
-        "location_label": "Location",
-        "location": "Greater Toronto Area, Canada",
-        "channels": (
-            {
-                "label": "Email",
-                "url": None,
-                "placeholder": "PLACEHOLDER — verified link required.",
-            },
-            {
-                "label": "GitHub",
-                "url": "https://github.com/htoor2026",
-            },
-            {
-                "label": "LinkedIn",
-                "url": "https://www.linkedin.com/in/harkamal-s/",
-            },
-            {
-                "label": "X",
-                "url": "https://x.com/HarryToor01",
-            },
-        ),
-    },
-    "footer": "Harkamal Toor · Greater Toronto Area, Canada",
+    "education": "Computer Programming Diploma — Conestoga College, 2024–2026",
+    "resume": "assets/resume.pdf",
 }
+
+SOCIALS = {
+    "GitHub": "https://github.com/htoor2026",
+    "LinkedIn": "https://www.linkedin.com/in/harkamal-s/",
+    "X": "https://x.com/HarryToor01",
+    "Email": None,
+}
+
+PROJECTS = (
+    {
+        "slug": "flight-pulse",
+        "title": "Flight Pulse",
+        "category": "AI Analytics · Data Engineering",
+        "summary": "Flight analytics and grounded AI system for investigating Toronto Pearson operations using flight, weather, SQL, and contextual evidence.",
+        "technologies": ("Python", "SQL", "MySQL", "Streamlit", "APIs", "Gemini"),
+        "featured_result": "72/72 flights matched to hourly weather context",
+        "problem": "Flight delay investigation often requires operational data, weather context, analytics, and careful communication without overstating causality.",
+        "approach": "Built provider ingestion and normalization, MySQL persistence, reusable read-only SQL analytics, weather/news context, a Streamlit dashboard, and seven approved Gemini analyst tools instead of unrestricted model-generated SQL.",
+        "results": (
+            "72 real YYZ flights retrieved and stored",
+            "48 hourly weather observations stored",
+            "72/72 flight records matched to weather by scheduled UTC hour",
+            "7 approved read-only analyst tools",
+            "70 automated tests",
+        ),
+        "decision": "Treat weather and news as context, not proof of delay causation; return an insufficient-evidence response when the stored data cannot establish a cause.",
+        "github": "https://github.com/htoor2026/flight-pulse",
+        "live": None,
+    },
+    {
+        "slug": "localmart-ai",
+        "title": "LocalMart AI",
+        "category": "Retail Intelligence · Causal ML",
+        "summary": "Geo-aware retail promotion decision system combining demand forecasting, uplift modeling, economics, and constrained optimization.",
+        "technologies": ("Python", "CatBoost", "Causal ML", "PuLP", "Streamlit", "Optimization"),
+        "featured_result": "$20.6K simulated incremental profit",
+        "problem": "Retail promotion decisions need to optimize profit, not simply pick the highest forecasted demand or largest discount.",
+        "approach": "Combined GTA market context, demand forecasting, T-Learner promotion uplift, product economics, inventory, and PuLP integer optimization across a semi-synthetic retail environment.",
+        "results": (
+            "3.09-unit demand forecasting test MAE",
+            "29.71% validation MAE improvement over lag-1 baseline",
+            "0.96-unit uplift MAE with 0.828 correlation to known treatment effects",
+            "2.17× top-10% uplift enrichment",
+            "$20,615.43 simulated incremental profit with 97.1% positive-profit selections",
+        ),
+        "decision": "Use treatment effect together with margin, discount economics, inventory, and operational constraints; the largest predicted uplift is not necessarily the most profitable promotion.",
+        "github": "https://github.com/htoor2026/local-mart",
+        "live": None,
+    },
+    {
+        "slug": "ab-testing",
+        "title": "Movie Recommendation A/B Testing",
+        "category": "Experimentation · Causal Inference",
+        "summary": "Randomized product experiment testing personalized recommendations against a popularity-based control, followed by segment and uplift analysis.",
+        "technologies": ("Python", "Statistics", "A/B Testing", "Causal Inference", "Uplift Modeling"),
+        "featured_result": "+0.846 pp CTR lift, p = 0.0171",
+        "problem": "Determine whether personalization creates enough incremental engagement to justify replacing a simpler recommendation strategy.",
+        "approach": "Validated randomization and SRM, ran power analysis and the overall test, analyzed predefined segments and interactions, and compared T-Learner and X-Learner heterogeneous treatment-effect models.",
+        "results": (
+            "28,000 synthetic users",
+            "9.343% control CTR vs 10.188% treatment CTR",
+            "+0.846 percentage-point lift (+9.05% relative), p = 0.0171",
+            "Returning-user lift: +1.595 pp",
+            "Treatment × returning interaction: +2.066 pp, p = 0.0037",
+        ),
+        "decision": "Do not roll personalization out globally. Personalize returning users, keep new users on the popularity baseline, and do not use individual uplift targeting yet.",
+        "github": "https://github.com/htoor2026/ab-testing-movie-app",
+        "live": None,
+    },
+    {
+        "slug": "toronto-climate",
+        "title": "Toronto Climate & Snowfall Intelligence",
+        "category": "Time Series · MLOps",
+        "summary": "Historical climate analysis and probabilistic seasonal snowfall forecasting with monitoring, retraining, and model-governance gates.",
+        "technologies": ("Python", "Time Series", "ElasticNet", "MLflow", "Streamlit", "CI/CD"),
+        "featured_result": "+0.218°C annual mean warming per decade",
+        "problem": "Estimate seasonal Toronto snowfall with uncertainty and determine whether new climate information changes the outlook enough to justify an operational response.",
+        "approach": "Used leakage-safe historical features, expanding walk-forward validation, climatology and ElasticNet models, calibrated uncertainty, monitoring, and explicit promotion gates.",
+        "results": (
+            "Annual mean temperature trend: +0.218°C per decade",
+            "Winter temperature trend: +0.301°C per decade",
+            "30-season climatology MAE: 31.50 cm",
+            "ElasticNet challenger MAE: 31.30 cm",
+            "Calibrated interval historical coverage: 82.9%",
+        ),
+        "decision": "Keep historical climatology as champion because the challenger did not satisfy the promotion gate; greater complexity alone is not evidence of better production performance.",
+        "github": "https://github.com/htoor2026/toronto-climate-snowfall-intelligence",
+        "live": "https://toronto-climate-snowfall-intelligence.streamlit.app/",
+    },
+    {
+        "slug": "churn",
+        "title": "Fighting Churn",
+        "category": "Predictive ML · Decision Support",
+        "summary": "Customer churn prediction and retention-prioritization system that converts risk scores into targeted action and expected monthly revenue exposure.",
+        "technologies": ("Python", "SQL", "XGBoost", "Logistic Regression", "Streamlit"),
+        "featured_result": "2.07× lift in the top-risk 10%",
+        "problem": "Identify customers at risk of churn, prioritize a limited retention budget, and quantify recurring revenue exposure in a highly imbalanced setting.",
+        "approach": "Engineered behavioral and subscription features, used a purged out-of-time split, compared Logistic Regression and XGBoost, and separated predictive churn ranking from downstream revenue-at-risk prioritization.",
+        "results": (
+            "32.9K account-observation modeling rows",
+            "XGBoost Core PR-AUC: 0.0373 vs ~1.61% churn base rate",
+            "Top-risk 10% captured 20.74% of observed churners",
+            "2.07× lift versus random targeting",
+            "$3,697.86 expected monthly revenue at risk across the test set",
+        ),
+        "decision": "Use the behavior-only XGBoost model for churn ranking and keep subscription economics downstream for prioritization rather than forcing them into the risk model.",
+        "github": "https://github.com/htoor2026/fighting_with_churn",
+        "live": None,
+    },
+    {
+        "slug": "mlops-house-price",
+        "title": "End-to-End House Price MLOps System",
+        "category": "MLOps · Production ML",
+        "summary": "Production-oriented Ames Housing lifecycle covering training, tracking, serving, monitoring, retraining, promotion, and rollback.",
+        "technologies": ("Python", "scikit-learn", "ZenML", "MLflow", "FastAPI", "Docker", "CI/CD"),
+        "featured_result": "R² = 0.9221 with 28 automated tests",
+        "problem": "Demonstrate the full ML lifecycle rather than stopping after model training and offline evaluation.",
+        "approach": "Built ZenML pipelines, MLflow tracking and registry, FastAPI serving, Pydantic validation, Docker packaging, operational metrics, drift/performance monitoring, and policy-driven model promotion and rollback.",
+        "results": (
+            "$13,044.81 test MAE",
+            "$18,626.84 RMSE",
+            "0.9221 R²",
+            "28 automated tests",
+            "GitHub Actions CI with linting and Docker validation",
+        ),
+        "decision": "Treat drift as supporting evidence rather than an automatic retraining trigger, and promote candidates only when explicit quality gates are satisfied.",
+        "github": "https://github.com/htoor2026/End-To-End-ML-Workflow",
+        "live": None,
+    },
+)

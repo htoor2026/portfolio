@@ -4,7 +4,8 @@ A simple three-page Streamlit portfolio for Data Science, Machine Learning, expe
 
 ## Pages
 
-- **Home** — profile photo, personal story, personality keywords, technical skills, and resume download.
+- **Home** — profile photo, personal story, personality keywords, technical skills.
+- **Resume** — Resume download.
 - **Projects** — six portfolio projects with concise summaries, project details, GitHub links, and live demos when publicly available.
 - **Contact** — LinkedIn, GitHub, X, and public email once approved.
 

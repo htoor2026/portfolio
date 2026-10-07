@@ -1,12 +1,12 @@
 """Verified content for Harkamal S's portfolio."""
 
 PROFILE = {
-    "name": "Harkamal S",
+    "name": "Harkamal Singh",
     "headline": "Data Scientist | Machine Learning | Experimentation",
     "subheadline": "Python • SQL • Statistics • ML Systems",
     "location": "Greater Toronto Area, Canada",
     "image": "assets/images/profile.png",
-    "image_alt": "Professional headshot of Harkamal S",
+    "image_alt": "Professional headshot of Harkamal Singh",
     "about": (
         "Two years ago, I came to Canada to study Computer Programming at Conestoga College. "
         "At the time, I had almost no background in coding and was starting from scratch.",

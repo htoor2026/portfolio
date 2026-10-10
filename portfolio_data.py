@@ -153,6 +153,50 @@ SOCIALS = {
     "Email": "htoor2026@gmail.com",
 }
 
+OPEN_SOURCE_CONTRIBUTIONS = (
+    {
+        "repository": "aeon-neuro",
+        "title": "Estimator test-parameter hooks",
+        "summary": (
+            "Fixed eight incorrect test-parameter overrides and added regression "
+            "tests so aeon receives lightweight estimator settings."
+        ),
+        "pr_number": 182,
+        "url": "https://github.com/aeon-toolkit/aeon-neuro/pull/182",
+    },
+    {
+        "repository": "aeon-neuro",
+        "title": "EEG frequency-band boundaries",
+        "summary": (
+            "Corrected overlapping and missing frequency assignments across "
+            "EEG bands, with a regression test for boundary coverage."
+        ),
+        "pr_number": 186,
+        "url": "https://github.com/aeon-toolkit/aeon-neuro/pull/186",
+    },
+    {
+        "repository": "aeon-neuro",
+        "title": "ChannelFilter public API and tests",
+        "summary": (
+            "Exposed ChannelFilter through the public package API and added "
+            "scoring, custom-callable, and validation tests."
+        ),
+        "pr_number": 187,
+        "url": "https://github.com/aeon-toolkit/aeon-neuro/pull/187",
+    },
+    {
+        "repository": "Kedro Plugins",
+        "title": "Experimental dataset documentation",
+        "summary": (
+            "Corrected experimental dataset YAML type paths to help users "
+            "configure Kedro datasets accurately."
+        ),
+        "pr_number": 1528,
+        "url": "https://github.com/kedro-org/kedro-plugins/pull/1528",
+    },
+)
+
+
 PROJECTS = (
     {
         "slug": "flight-pulse",

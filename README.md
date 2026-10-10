@@ -6,8 +6,12 @@ A simple three-page Streamlit portfolio for Data Science, Machine Learning, expe
 
 - **Home** — profile photo, personal story, personality keywords, technical skills.
 - **Resume** — Resume download.
-- **Projects** — six portfolio projects with concise summaries, project details, GitHub links, and live demos when publicly available.
+- **Projects** — six ML portfolio projects plus a separate open-source contributions section linking to submitted aeon-neuro and Kedro Plugins pull requests.
 - **Contact** — LinkedIn, GitHub, X, and public email once approved.
+
+## Open-source contributions
+
+The Projects page highlights four submitted pull requests to aeon-neuro and Kedro Plugins. Each card links directly to the upstream PR so visitors can verify the code and current review status. These are separate from the six ML portfolio projects.
 
 ## Tech stack
 

@@ -5,7 +5,14 @@ from pathlib import Path
 
 import streamlit as st
 
-from portfolio_data import EDUCATION, PROFILE, PROJECTS, SKILL_GROUPS, SOCIALS
+from portfolio_data import (
+    EDUCATION,
+    OPEN_SOURCE_CONTRIBUTIONS,
+    PROFILE,
+    PROJECTS,
+    SKILL_GROUPS,
+    SOCIALS,
+)
 
 ROOT = Path(__file__).parent
 
@@ -225,6 +232,29 @@ def projects_page() -> None:
         for col, project in zip(cols, PROJECTS[row_start : row_start + 3]):
             with col:
                 project_card(project)
+
+    st.divider()
+    st.markdown("## Open-Source Contributions")
+    st.write(
+        "Python bug fixes, regression tests, and documentation improvements "
+        "contributed to aeon-neuro and Kedro Plugins. View each pull request "
+        "for its latest review or merge status."
+    )
+
+    for row_start in range(0, len(OPEN_SOURCE_CONTRIBUTIONS), 2):
+        cols = st.columns(2, gap="medium")
+        for col, contribution in zip(
+            cols, OPEN_SOURCE_CONTRIBUTIONS[row_start : row_start + 2]
+        ):
+            with col:
+                with st.container(border=True):
+                    st.caption(contribution["repository"])
+                    st.markdown(f"### {contribution['title']}")
+                    st.write(contribution["summary"])
+                    st.link_button(
+                        f"View Pull Request #{contribution['pr_number']}",
+                        contribution["url"],
+                    )
 
 
 def contact_page() -> None:
